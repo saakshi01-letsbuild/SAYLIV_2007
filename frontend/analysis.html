@@ -580,6 +580,63 @@
 
 </div>
 
+<script>
+const SAYLIV_API_BASE = "https://sayliv-2007.onrender.com";
+
+const form = document.getElementById("analysisForm");
+const runButton = form.querySelector(".run-button");
+
+form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const payload = {
+        commodity: document.getElementById("commodity").value,
+        cargo: Number(document.getElementById("cargo").value),
+        origin: document.getElementById("origin").value,
+        loadingPort: document.getElementById("loadingPort").value,
+        destination: document.getElementById("destination").value,
+        arrivalDate: document.getElementById("arrivalDate").value,
+        vessel: document.getElementById("vessel").value,
+        contract: document.getElementById("contract").value
+    };
+
+    const originalText = runButton.textContent;
+    runButton.disabled = true;
+    runButton.textContent = "Analyzing...";
+
+    try {
+        const response = await fetch(SAYLIV_API_BASE + "/analyze", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error("Backend error: " + response.status);
+        }
+
+        const result = await response.json();
+
+        localStorage.setItem("saylivInput", JSON.stringify(payload));
+        localStorage.setItem("saylivResult", JSON.stringify(result));
+
+        window.location.href = "result.html";
+
+    } catch (error) {
+        console.error(error);
+
+        runButton.disabled = false;
+        runButton.textContent = originalText;
+
+        alert(
+            "SAYLIV backend se connection nahi ho pa raha. Please try again."
+        );
+    }
+});
+</script>
+
 
 </body>
 </html>
