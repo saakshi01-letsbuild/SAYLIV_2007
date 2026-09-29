@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SAYLIV Decision Report</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+            color: #172033;
+        }
+
+        .report-page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 30px auto;
+            background: white;
+            padding: 18mm;
+            box-shadow: 0 8px 30px rgba(15, 35, 60, 0.12);
+        }
+
+        .top-bar {
+            border-bottom: 4px solid #f28c28;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+        }
+
+        .brand {
+            font-size: 30px;
+            font-weight: 800;
+            color: #0d2340;
+            letter-spacing: 1px;
+        }
+
+        .brand span {
+            color: #f28c28;
+        }
+
+        .report-title {
+            margin-top: 10px;
+            font-size: 25px;
+            font-weight: 700;
+            color: #172033;
+        }
+
+        .report-meta {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        h2 {
+            color: #0d2340;
+            font-size: 19px;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            border-left: 4px solid #f28c28;
+            padding-left: 10px;
+        }
+
+        h3 {
+            color: #0d2340;
+            margin-top: 0;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        .objective-box,
+        .recommendation-box,
+        .booking-box,
+        .decision-box {
+            background: #f6f9fc;
+            border: 1px solid #dbe4ee;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 15px;
+        }
+
+        .recommendation-box {
+            border-left: 5px solid #f28c28;
+            background: #fff8ef;
+        }
+
+        .recommendation-title {
+            font-size: 21px;
+            font-weight: 700;
+            color: #0d2340;
+            margin-bottom: 8px;
+        }
+
+        .score {
+            display: inline-block;
+            background: #0d2340;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .card {
+            border: 1px solid #dbe4ee;
+            border-radius: 7px;
+            padding: 13px;
+            background: white;
+        }
+
+        .card-label {
+            color: #64748b;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 5px;
+        }
+
+        .card-value {
+            color: #172033;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        th {
+            background: #0d2340;
+            color: white;
+            padding: 9px;
+            text-align: left;
+        }
+
+        td {
+            border: 1px solid #dbe4ee;
+            padding: 8px;
+        }
+
+        .section-note {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 7px;
+        }
+
+        .trail {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 7px;
+            margin-top: 12px;
+        }
+
+        .trail-item {
+            text-align: center;
+            padding: 10px 5px;
+            background: #eef4fa;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #0d2340;
+        }
+
+        .footer {
+            margin-top: 35px;
+            padding-top: 15px;
+            border-top: 1px solid #dbe4ee;
+            color: #64748b;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .print-button {
+            display: block;
+            width: 210mm;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .print-button button {
+            background: #f28c28;
+            color: white;
+            border: none;
+            padding: 13px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .print-button button:hover {
+            background: #d97516;
+        }
+
+        .status {
+            font-weight: 700;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .report-page {
+                margin: 0;
+                box-shadow: none;
+                width: 210mm;
+                min-height: 297mm;
+            }
+
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="print-button">
+        <button onclick="downloadPDF()">
+            ↓ Download / Save Report as PDF
+        </button>
+    </div>
+
+    <div class="report-page" id="reportContent">
+
+        <!-- HEADER -->
+        <div class="top-bar">
+            <div class="brand">
+                SAY<span>LIV</span>
+            </div>
+
+            <div class="report-title">
+                Intelligent Freight Decision Report
+            </div>
+
+            <div class="report-meta" id="reportDate">
+                Generated by SAYLIV Decision Intelligence
+            </div>
+        </div>
+
+
+        <!-- 1. EXECUTIVE SUMMARY -->
+        <h2>1. Executive Summary</h2>
+
+        <div class="recommendation-box">
+
+            <div class="recommendation-title" id="finalRecommendation">
+                Loading recommendation...
+            </div>
+
+            <p id="finalRecommendationText">
+                Loading analysis...
+            </p>
+
+            <div class="score">
+                Recommendation Score:
+                <span id="recommendationScore">--</span>
+            </div>
+
+        </div>
+
+
+        <!-- 2. OBJECTIVE -->
+        <h2>2. Original Business Objective</h2>
+
+        <div class="objective-box">
+
+            <h3>What was the objective?</h3>
+
+            <p>
+                The objective was to support a freight procurement and vessel
+                chartering decision for bulk cargo moving from an overseas
+                origin to the East Coast of India.
+            </p>
+
+            <p>
+                SAYLIV evaluates the selected cargo, freight market outlook,
+                vessel suitability, destination-port compatibility, operational
+                risk and expected idle time before producing a recommendation.
+            </p>
+
+            <div class="grid">
+
+                <div class="card">
+                    <div class="card-label">Commodity</div>
+                    <div class="card-value" id="objectiveCommodity">--</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Cargo Quantity</div>
+                    <div class="card-value" id="objectiveCargo">--</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Origin</div>
+                    <div class="card-value" id="objectiveOrigin">--</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Destination</div>
+                    <div class="card-value" id="objectiveDestination">--</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Loading Port</div>
+                    <div class="card-value" id="objectiveLoadingPort">--</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Arrival Date</div>
+                    <div class="card-value" id="objectiveArrival">--</div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- 3. DECISION SNAPSHOT -->
+        <h2>3. Decision Snapshot</h2>
+
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-label">Freight Outlook</div>
+                <div class="card-value" id="snapshotFreight">--</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Entry Window</div>
+                <div class="card-value" id="snapshotEntry">--</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Recommended Vessel</div>
+                <div class="card-value" id="snapshotVessel">--</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Vessel Score</div>
+                <div class="card-value" id="snapshotVesselScore">--</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Overall Risk</div>
+                <div class="card-value" id="snapshotRisk">--</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label">Expected Idle Time</div>
+                <div class="card-value" id="snapshotIdle">--</div>
+            </div>
+
+        </div>
+
+
+        <!-- 4. FREIGHT -->
+        <h2>4. Freight Forecasting Analysis</h2>
+
+        <div class="decision-box">
+
+            <h3 id="freightHeading">
+                Freight Forecast
+            </h3>
+
+            <p id="freightExplanation">
+                Loading...
+            </p>
+
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>Forecast Rate</td>
+                    <td id="freightRate">--</td>
+                </tr>
+
+                <tr>
+                    <td>Trend</td>
+                    <td id="freightTrend">--</td>
+                </tr>
+
+                <tr>
+                    <td>Forecast Model</td>
+                    <td id="freightModel">--</td>
+                </tr>
+
+                <tr>
+                    <td>Confidence</td>
+                    <td id="freightConfidence">--</td>
+                </tr>
+
+                <tr>
+                    <td>Training Points</td>
+                    <td id="trainingPoints">--</td>
+                </tr>
+            </table>
+
+        </div>
+
+
+        <!-- 5. VESSEL -->
+        <h2>5. Vessel Suitability</h2>
+
+        <div class="decision-box">
+
+            <h3 id="vesselHeading">Vessel Evaluation</h3>
+
+            <p id="vesselExplanation">
+                Loading...
+            </p>
+
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>Recommended Vessel</td>
+                    <td id="vesselResult">--</td>
+                </tr>
+
+                <tr>
+                    <td>Vessel Suitability Score</td>
+                    <td id="vesselScore">--</td>
+                </tr>
+
+                <tr>
+                    <td>Contract Strategy</td>
+                    <td id="contractStrategy">--</td>
+                </tr>
+            </table>
+
+        </div>
+
+
+        <!-- 6. PORT -->
+        <h2>6. Port Compatibility</h2>
+
+        <div class="decision-box">
+
+            <h3 id="portHeading">Port Evaluation</h3>
+
+            <p id="portExplanation">
+                Loading...
+            </p>
+
+            <div id="portChecks">
+                Loading...
+            </div>
+
+        </div>
+
+
+        <!-- 7. RISK -->
+        <h2>7. Risk & Idle-Time Analysis</h2>
+
+        <div class="decision-box">
+
+            <table>
+                <tr>
+                    <th>Factor</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>Overall Risk</td>
+                    <td id="riskResult">--</td>
+                </tr>
+
+                <tr>
+                    <td>Risk Points</td>
+                    <td id="riskPoints">--</td>
+                </tr>
+
+                <tr>
+                    <td>Expected Idle Time</td>
+                    <td id="idleResult">--</td>
+                </tr>
+
+                <tr>
+                    <td>Congestion</td>
+                    <td id="congestionResult">--</td>
+                </tr>
+            </table>
+
+            <p class="section-note">
+                Risk and idle-time values are used as decision-support
+                indicators within the prototype.
+            </p>
+
+        </div>
+
+
+        <!-- 8. OPTIMIZATION -->
+        <h2>8. Optimization Layers</h2>
+
+        <table>
+
+            <tr>
+                <th>Optimization Layer</th>
+                <th>Result</th>
+                <th>Purpose</th>
+            </tr>
+
+            <tr>
+                <td>Freight Pooling</td>
+                <td id="poolingResult">--</td>
+                <td>Evaluate combined cargo utilization opportunities.</td>
+            </tr>
+
+            <tr>
+                <td>Carbon-Aware Planning</td>
+                <td id="carbonResult">--</td>
+                <td>Consider representative emissions impact.</td>
+            </tr>
+
+            <tr>
+                <td>Intermodal Optimization</td>
+                <td id="intermodalResult">--</td>
+                <td>Compare prototype road and rail planning indices.</td>
+            </tr>
+
+            <tr>
+                <td>Ocean Scanner</td>
+                <td id="oceanResult">--</td>
+                <td>Combine congestion and freight-market signals.</td>
+            </tr>
+
+            <tr>
+                <td>Planner</td>
+                <td id="plannerResult">--</td>
+                <td>Generate a structured voyage planning sequence.</td>
+            </tr>
+
+            <tr>
+                <td>Weather</td>
+                <td id="weatherResult">--</td>
+                <td>Consider representative seasonal operating conditions.</td>
+            </tr>
+
+        </table>
+
+
+        <!-- 9. WHY -->
+        <h2>9. Why This Result Was Recommended</h2>
+
+        <div class="decision-box">
+
+            <p id="whyRecommendation">
+                Loading decision reasoning...
+            </p>
+
+            <ul id="reasonList">
+            </ul>
+
+        </div>
+
+
+        <!-- 10. BOOKING -->
+        <h2>10. Booking / Execution Record</h2>
+
+        <div class="booking-box">
+
+            <p>
+                This section records the execution/booking information
+                available from the SAYLIV booking flow.
+            </p>
+
+            <table>
+
+                <tr>
+                    <th>Booking Field</th>
+                    <th>Recorded Value</th>
+                </tr>
+
+                <tr>
+                    <td>Booking Status</td>
+                    <td id="bookingStatus">Not booked yet</td>
+                </tr>
+
+                <tr>
+                    <td>Booking ID</td>
+                    <td id="bookingId">--</td>
+                </tr>
+
+                <tr>
+                    <td>Company</td>
+                    <td id="bookingCompany">--</td>
+                </tr>
+
+                <tr>
+                    <td>Vessel</td>
+                    <td id="bookingVessel">--</td>
+                </tr>
+
+                <tr>
+                    <td>Route</td>
+                    <td id="bookingRoute">--</td>
+                </tr>
+
+                <tr>
+                    <td>Cargo</td>
+                    <td id="bookingCargo">--</td>
+                </tr>
+
+                <tr>
+                    <td>Contract</td>
+                    <td id="bookingContract">--</td>
+                </tr>
+
+                <tr>
+                    <td>Booking Date</td>
+                    <td id="bookingDate">--</td>
+                </tr>
+
+            </table>
+
+            <p class="section-note">
+                If no booking record exists in the browser storage,
+                the report will show "Not booked yet" instead of creating
+                fictional booking information.
+            </p>
+
+        </div>
+
+
+        <!-- 11. DECISION TRAIL -->
+        <h2>11. SAYLIV Decision Trail</h2>
+
+        <p>
+            The complete decision process can be summarized as:
+        </p>
+
+        <div class="trail">
+
+            <div class="trail-item">
+                Objective
+            </div>
+
+            <div class="trail-item">
+                Forecast
+            </div>
+
+            <div class="trail-item">
+                Evaluate
+            </div>
+
+            <div class="trail-item">
+                Simulate
+            </div>
+
+            <div class="trail-item">
+                Recommend
+            </div>
+
+        </div>
+
+
+        <!-- 12. CONCLUSION -->
+        <h2>12. Final Conclusion</h2>
+
+        <div class="recommendation-box">
+
+            <h3>Decision Outcome</h3>
+
+            <p id="finalConclusion">
+                SAYLIV combines freight forecasting, vessel matching,
+                port compatibility, risk analysis and optimization layers
+                to support a structured freight procurement decision.
+            </p>
+
+        </div>
+
+
+        <div class="footer">
+
+            SAYLIV — Intelligent Freight Decision Support System<br>
+
+            Prototype decision-support report. Forecasts and operational
+            indicators should be validated with live market, port,
+            weather and booking data before production deployment.
+
+        </div>
+
+    </div>
+
+
+    <!-- PDF LIBRARY -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- REPORT LOGIC -->
+    <script src="report.js"></script>
+
+</body>
+</html>

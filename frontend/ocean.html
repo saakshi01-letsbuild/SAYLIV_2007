@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SAYLIV | Ocean Scanner</title>
+
+    <!-- Leaflet Map -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+            color: #172033;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+
+            background: #0d2340;
+            color: white;
+
+            padding: 25px 17px;
+
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 0 10px 25px;
+        }
+
+        .logo span {
+            color: #f28c28;
+        }
+
+        .nav-title {
+            color: #8ea1b8;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 10px 8px;
+        }
+
+        .nav-item {
+            display: block;
+            color: #cbd6e3;
+            text-decoration: none;
+
+            padding: 10px 12px;
+            border-radius: 6px;
+
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        .nav-item:hover {
+            background: #18385d;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: #f28c28;
+            color: white;
+            font-weight: 700;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 235px;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow {
+            color: #f28c28;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #0d2340;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            margin: 8px 0 0;
+            color: #64748b;
+            font-size: 14px;
+            max-width: 680px;
+            line-height: 1.5;
+        }
+
+        .prototype-badge {
+            background: #fff5e9;
+            color: #a95d12;
+            border: 1px solid #f5c993;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* =========================
+           SCANNER
+        ========================= */
+
+        .scanner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 355px;
+            height: 650px;
+
+            background: white;
+            border: 1px solid #dbe4ee;
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            box-shadow: 0 5px 20px rgba(15, 35, 60, 0.07);
+        }
+
+        /* =========================
+           MAP
+        ========================= */
+
+        .map-area {
+            position: relative;
+            min-width: 0;
+            background: #dce8f1;
+        }
+
+        #oceanMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-overlay {
+            position: absolute;
+            left: 18px;
+            top: 18px;
+            z-index: 500;
+
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid #dbe4ee;
+            border-radius: 7px;
+
+            padding: 11px 14px;
+
+            box-shadow: 0 4px 15px rgba(15, 35, 60, 0.12);
+        }
+
+        .map-overlay-title {
+            color: #0d2340;
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .map-overlay-text {
+            color: #64748b;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 18px;
+            left: 18px;
+            z-index: 500;
+
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid #dbe4ee;
+            border-radius: 7px;
+
+            padding: 10px 13px;
+
+            font-size: 10px;
+        }
+
+        .legend-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin: 5px 0;
+        }
+
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+
+        .vessel-dot {
+            background: #f28c28;
+        }
+
+        .port-dot {
+            background: #0d2340;
+        }
+
+        .route-dot {
+            background: #3285d8;
+        }
+
+        /* =========================
+           CONTROL PANEL
+        ========================= */
+
+        .control-panel {
+            border-left: 1px solid #dbe4ee;
+            background: #ffffff;
+
+            display: flex;
+            flex-direction: column;
+
+            overflow-y: auto;
+        }
+
+        .panel-header {
+            padding: 20px;
+            border-bottom: 1px solid #e4ebf2;
+        }
+
+        .panel-header h2 {
+            margin: 0;
+            color: #0d2340;
+            font-size: 19px;
+        }
+
+        .panel-header p {
+            margin: 6px 0 0;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .filters {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e4ebf2;
+        }
+
+        .field {
+            margin-bottom: 13px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        .field label {
+            display: block;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+
+            border: 1px solid #ccd8e4;
+            border-radius: 6px;
+
+            background: white;
+            color: #172033;
+
+            font-size: 12px;
+            outline: none;
+        }
+
+        select:focus {
+            border-color: #3285d8;
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+
+            padding: 16px 20px;
+        }
+
+        .stat {
+            background: #f6f9fc;
+            border: 1px solid #e0e8f0;
+            border-radius: 6px;
+            padding: 10px;
+        }
+
+        .stat-label {
+            font-size: 9px;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            margin-top: 4px;
+            color: #0d2340;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        /* =========================
+           SELECTED VESSEL
+        ========================= */
+
+        .selected-vessel {
+            margin: 0 20px 20px;
+
+            border: 1px solid #dbe4ee;
+            border-radius: 7px;
+
+            padding: 14px;
+
+            background: #fbfdff;
+        }
+
+        .selected-label {
+            color: #f28c28;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+
+        .selected-name {
+            color: #0d2340;
+            font-size: 17px;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        .selected-route {
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .vessel-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+
+            margin-top: 12px;
+        }
+
+        .detail {
+            background: #f1f6fa;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .detail small {
+            display: block;
+            color: #64748b;
+            font-size: 9px;
+        }
+
+        .detail strong {
+            display: block;
+            margin-top: 2px;
+            color: #172033;
+            font-size: 11px;
+        }
+
+        /* =========================
+           BOTTOM INFO
+        ========================= */
+
+        .scanner-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+
+            gap: 15px;
+            margin-top: 18px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #dbe4ee;
+            border-radius: 8px;
+            padding: 17px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 7px;
+            color: #0d2340;
+            font-size: 14px;
+        }
+
+        .info-card p {
+            margin: 0;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1050px) {
+
+            .scanner {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .map-area {
+                height: 500px;
+            }
+
+            .control-panel {
+                border-left: none;
+                border-top: 1px solid #dbe4ee;
+            }
+
+            .scanner-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .page-header {
+                flex-direction: column;
+            }
+
+            .scanner {
+                border-radius: 7px;
+            }
+
+            .map-area {
+                height: 430px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            SAY<span>LIV</span>
+        </div>
+
+        <div class="nav-title">
+            Core
+        </div>
+
+        <a href="index.html" class="nav-item">
+            Dashboard
+        </a>
+
+        <a href="analysis.html" class="nav-item">
+            New Analysis
+        </a>
+
+        <div class="nav-title">
+            Intelligence
+        </div>
+
+        <a href="result.html" class="nav-item">
+            Freight Forecast
+        </a>
+
+        <a href="result.html" class="nav-item">
+            Vessel Match
+        </a>
+
+        <a href="result.html" class="nav-item">
+            Port Compatibility
+        </a>
+
+        <a href="result.html" class="nav-item">
+            Risk & Idle
+        </a>
+
+        <div class="nav-title">
+            Optimization
+        </div>
+
+        <a href="whatif.html" class="nav-item">
+            What-if Simulator
+        </a>
+
+        <a href="ocean.html" class="nav-item active">
+            Ocean Scanner
+        </a>
+
+        <a href="review.html" class="nav-item">
+            Review Analysis
+        </a>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main">
+
+        <div class="page-header">
+
+            <div>
+
+                <div class="eyebrow">
+                    Maritime Intelligence
+                </div>
+
+                <h1>
+                    Ocean Scanner
+                </h1>
+
+                <p class="subtitle">
+                    Explore representative vessel movement across
+                    overseas origins and the East Coast of India
+                    before making a chartering decision.
+                </p>
+
+            </div>
+
+            <div class="prototype-badge">
+                Prototype vessel traffic
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             SCANNER
+        ========================= -->
+
+        <section class="scanner">
+
+            <!-- MAP -->
+
+            <div class="map-area">
+
+                <div id="oceanMap"></div>
+
+
+                <div class="map-overlay">
+
+                    <div class="map-overlay-title">
+                        Maritime Route Network
+                    </div>
+
+                    <div class="map-overlay-text">
+                        Overseas origins → East Coast India
+                    </div>
+
+                </div>
+
+
+                <div class="legend">
+
+                    <div class="legend-row">
+                        <span class="legend-dot vessel-dot"></span>
+                        Vessel
+                    </div>
+
+                    <div class="legend-row">
+                        <span class="legend-dot port-dot"></span>
+                        Port
+                    </div>
+
+                    <div class="legend-row">
+                        <span class="legend-dot route-dot"></span>
+                        Route
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTROL PANEL -->
+
+            <aside class="control-panel">
+
+                <div class="panel-header">
+
+                    <h2>
+                        Scan Maritime Traffic
+                    </h2>
+
+                    <p>
+                        Filter the network to inspect vessels,
+                        origins and destination-port routes.
+                    </p>
+
+                </div>
+
+
+                <div class="filters">
+
+                    <div class="field">
+
+                        <label>
+                            Origin
+                        </label>
+
+                        <select id="originFilter">
+
+                            <option value="All">
+                                All origins
+                            </option>
+
+                            <option value="Australia">
+                                Australia
+                            </option>
+
+                            <option value="US">
+                                US
+                            </option>
+
+                            <option value="Mozambique">
+                                Mozambique
+                            </option>
+
+                            <option value="Russia">
+                                Russia
+                            </option>
+
+                            <option value="Indonesia">
+                                Indonesia
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Destination
+                        </label>
+
+                        <select id="destinationFilter">
+
+                            <option value="All">
+                                All East Coast ports
+                            </option>
+
+                            <option value="Paradip">
+                                Paradip
+                            </option>
+
+                            <option value="Visakhapatnam">
+                                Visakhapatnam
+                            </option>
+
+                            <option value="Gangavaram">
+                                Gangavaram
+                            </option>
+
+                            <option value="Gopalpur">
+                                Gopalpur
+                            </option>
+
+                            <option value="Dhamra">
+                                Dhamra
+                            </option>
+
+                            <option value="Haldia">
+                                Haldia
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Vessel Type
+                        </label>
+
+                        <select id="vesselFilter">
+
+                            <option value="All">
+                                All vessel types
+                            </option>
+
+                            <option value="Handysize">
+                                Handysize
+                            </option>
+
+                            <option value="Supramax">
+                                Supramax
+                            </option>
+
+                            <option value="Panamax">
+                                Panamax
+                            </option>
+
+                            <option value="Capesize">
+                                Capesize
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Route Status
+                        </label>
+
+                        <select id="statusFilter">
+
+                            <option value="All">
+                                All routes
+                            </option>
+
+                            <option value="In Transit">
+                                In Transit
+                            </option>
+
+                            <option value="Loading">
+                                Loading
+                            </option>
+
+                            <option value="Approaching Port">
+                                Approaching Port
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATS -->
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <div class="stat-label">
+                            Vessels
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="vesselCount"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-label">
+                            Routes
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="routeCount"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-label">
+                            Congestion
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="congestionLevel"
+                        >
+                            Medium
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-label">
+                            Market
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="marketSignal"
+                        >
+                            Stable
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SELECTED VESSEL -->
+
+                <div class="selected-vessel">
+
+                    <div class="selected-label">
+                        Selected Vessel
+                    </div>
+
+                    <div
+                        class="selected-name"
+                        id="selectedVesselName"
+                    >
+                        Select a vessel
+                    </div>
+
+                    <div
+                        class="selected-route"
+                        id="selectedVesselRoute"
+                    >
+                        Click any vessel marker on the map.
+                    </div>
+
+
+                    <div class="vessel-details">
+
+                        <div class="detail">
+
+                            <small>
+                                Type
+                            </small>
+
+                            <strong id="selectedType">
+                                --
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                Status
+                            </small>
+
+                            <strong id="selectedStatus">
+                                --
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                ETA
+                            </small>
+
+                            <strong id="selectedEta">
+                                --
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <small>
+                                Cargo
+                            </small>
+
+                            <strong id="selectedCargo">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </section>
+
+
+        <!-- =========================
+             EXPLANATION CARDS
+        ========================= -->
+
+        <section class="scanner-info">
+
+            <div class="info-card">
+
+                <h3>
+                    Ocean Visibility
+                </h3>
+
+                <p>
+                    View the movement network between overseas
+                    sourcing regions and India's East Coast
+                    before selecting a chartering strategy.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>
+                    Route Awareness
+                </h3>
+
+                <p>
+                    Identify the origin, destination port,
+                    vessel type and current prototype route
+                    status for each displayed vessel.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>
+                    Decision Support
+                </h3>
+
+                <p>
+                    Ocean Scanner provides route awareness that
+                    can be combined with freight forecasts,
+                    port compatibility and risk analysis.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Leaflet -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+    <!-- SAYLIV Ocean Scanner -->
+    <script src="ocean.js"></script>
+
+</body>
+
+</html>

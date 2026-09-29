@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAYLIV | Analysis Result</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================================================
+           SAYLIV RESULT PAGE — LIGHT PROFESSIONAL THEME
+           ONLY VISUAL THEME CHANGED
+           ========================================================= */
+
+        html,
+        body {
+            min-height: 100%;
+            height: auto !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f7fb;
+            color: #18324b;
+        }
+
+        .app {
+            min-height: 100vh;
+            height: auto !important;
+            display: flex;
+            overflow: visible !important;
+        }
+
+        /* =========================================================
+           LIGHT SIDEBAR
+           ========================================================= */
+
+        .sidebar {
+            background: #ffffff !important;
+            border-right: 1px solid #e2eaf2 !important;
+            color: #18324b !important;
+            box-shadow: 4px 0 20px rgba(31, 62, 91, 0.04);
+        }
+
+        .brand h2 {
+            color: #163b5c !important;
+        }
+
+        .brand span {
+            color: #7890a5 !important;
+        }
+
+        .brand-mark {
+            background: #eaf3fb !important;
+            color: #2d6f9f !important;
+            border: 1px solid #d5e6f3;
+        }
+
+        .nav-title {
+            color: #8ba0b3 !important;
+        }
+
+        .nav-item {
+            color: #60788e !important;
+            border-radius: 8px !important;
+        }
+
+        .nav-item:hover {
+            background: #f0f6fb !important;
+            color: #245d86 !important;
+        }
+
+        .nav-item.active {
+            background: #e9f3fb !important;
+            color: #245f8d !important;
+            border-left: 3px solid #2f78a8 !important;
+        }
+
+        .sidebar-footer {
+            color: #7b91a5 !important;
+            border-top: 1px solid #e5edf4 !important;
+        }
+
+        .status-dot {
+            background: #42b978 !important;
+        }
+
+        /* =========================================================
+           MAIN
+           ========================================================= */
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            min-height: 100vh;
+            height: auto !important;
+            overflow: visible !important;
+            padding-bottom: 55px;
+
+            background:
+                radial-gradient(
+                    circle at 85% 0%,
+                    rgba(78, 143, 190, 0.08),
+                    transparent 30%
+                ),
+                #f4f7fb;
+        }
+
+        /* =========================================================
+           TOPBAR
+           ========================================================= */
+
+        .topbar {
+            margin-bottom: 22px;
+        }
+
+        .topbar h1 {
+            color: #183b58;
+            letter-spacing: -0.4px;
+        }
+
+        .eyebrow {
+            color: #3178a6 !important;
+            font-weight: 800;
+            letter-spacing: 1.1px;
+        }
+
+        .secondary-button {
+            background: #ffffff !important;
+            color: #285f86 !important;
+            border: 1px solid #d6e3ee !important;
+            box-shadow: 0 3px 12px rgba(31, 70, 100, 0.05);
+        }
+
+        .secondary-button:hover {
+            background: #eef6fb !important;
+        }
+
+        /* =========================================================
+           SCENARIO
+           ========================================================= */
+
+        .result-scenario {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 22px;
+            margin-bottom: 15px;
+            border-radius: 14px;
+            background: #ffffff;
+            border: 1px solid #dce7f0;
+            box-shadow: 0 7px 24px rgba(35, 71, 101, 0.06);
+        }
+
+        .result-scenario h2 {
+            margin: 5px 0 4px;
+            color: #183b58;
+        }
+
+        .result-scenario p:not(.eyebrow) {
+            color: #6c8295;
+        }
+
+        .analysis-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #278653;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .status-check {
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #e7f7ee;
+            color: #29915b;
+        }
+
+        /* =========================================================
+           FINAL RECOMMENDATION
+           ========================================================= */
+
+        .decision-panel {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 22px;
+            padding: 28px;
+            margin-bottom: 16px;
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #edf6fc 0%,
+                    #ffffff 62%,
+                    #fffaf4 100%
+                );
+
+            border: 1px solid #cfe1ed;
+
+            box-shadow:
+                0 12px 34px rgba(35, 73, 104, 0.08),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
+        .decision-panel h2 {
+            margin: 5px 0 8px;
+            font-size: 28px;
+            color: #163b59;
+        }
+
+        .decision-panel p:not(.eyebrow) {
+            color: #5e7589;
+            line-height: 1.6;
+        }
+
+        .recommendation-score {
+            min-width: 125px;
+            align-self: center;
+            text-align: center;
+            padding: 15px 18px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #f0d7b9;
+            box-shadow: 0 6px 18px rgba(50, 75, 95, 0.07);
+        }
+
+        .recommendation-score span {
+            display: block;
+            font-size: 11px;
+            color: #71879a;
+            margin-bottom: 4px;
+        }
+
+        .recommendation-score strong {
+            font-size: 39px;
+            color: #df7d20;
+        }
+
+        .recommendation-score small {
+            color: #8799a9;
+        }
+
+        .decision-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .book-button,
+        .review-button,
+        .whatif-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 43px;
+            padding: 0 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .book-button {
+            border: 0;
+            background: #e98a2b;
+            color: #ffffff;
+            box-shadow: 0 6px 18px rgba(233,138,43,0.20);
+        }
+
+        .review-button {
+            background: #245f88;
+            color: #ffffff;
+            border: 1px solid #245f88;
+            box-shadow: 0 5px 15px rgba(36,95,136,0.12);
+        }
+
+        .whatif-button {
+            background: #ffffff;
+            color: #286b97;
+            border: 1px solid #9fc2d9;
+        }
+
+        .book-button:hover,
+        .review-button:hover,
+        .whatif-button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        /* =========================================================
+           SNAPSHOT CARDS
+           ========================================================= */
+
+        .result-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 19px;
+        }
+
+        .result-card {
+            padding: 18px;
+            min-height: 105px;
+            box-sizing: border-box;
+            border-radius: 11px;
+            background: #ffffff;
+            border: 1px solid #dce7f0;
+            box-shadow: 0 6px 20px rgba(35, 71, 101, 0.055);
+        }
+
+        .result-card span {
+            display: block;
+            margin-bottom: 8px;
+            color: #7890a4;
+            font-size: 12px;
+        }
+
+        .result-card strong {
+            display: block;
+            color: #183b58;
+            font-size: 20px;
+        }
+
+        .result-card small {
+            display: block;
+            margin-top: 5px;
+            color: #8b9cac;
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           SECTION HEADING
+           ========================================================= */
+
+        .section-heading {
+            margin: 22px 0 12px;
+        }
+
+        .section-heading h2 {
+            margin: 3px 0 0;
+            color: #183b58;
+            font-size: 20px;
+        }
+
+        /* =========================================================
+           RECOMMENDATION CARDS
+           ========================================================= */
+
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+        }
+
+        .recommendation-card {
+            min-height: 164px;
+            padding: 19px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #dce7f0;
+            box-shadow: 0 7px 22px rgba(35, 71, 101, 0.055);
+            transition: 0.2s ease;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-2px);
+            border-color: #a9c9df;
+            background: #fbfdff;
+            box-shadow: 0 10px 26px rgba(35, 71, 101, 0.09);
+        }
+
+        .recommendation-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 13px;
+        }
+
+        .recommendation-card h3 {
+            margin: 0;
+            color: #1c405d;
+            font-size: 15px;
+        }
+
+        .recommendation-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #edf6fc;
+            color: #2e78a6;
+            border: 1px solid #d9eaf4;
+            font-weight: 800;
+        }
+
+        .recommendation-card p {
+            margin: 0;
+            color: #62798d;
+            font-size: 13px;
+            line-height: 1.58;
+        }
+
+        .recommendation-card b {
+            display: block;
+            margin-top: 14px;
+            color: #d8791d;
+            font-size: 12px;
+        }
+
+        /* =========================================================
+           REVIEW CTA
+           ========================================================= */
+
+        .review-cta {
+            margin-top: 18px;
+        }
+
+        .review-cta .decision-panel {
+            margin-bottom: 0;
+        }
+
+        /* =========================================================
+           BOOKING MODAL
+           ========================================================= */
+
+        .booking-overlay,
+        .confirmation-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(28, 49, 66, 0.38);
+            backdrop-filter: blur(6px);
+        }
+
+        .booking-overlay.show,
+        .confirmation-overlay.show {
+            display: flex;
+        }
+
+        .booking-modal,
+        .confirmation-modal {
+            width: min(560px, 100%);
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            padding: 26px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            background: #ffffff;
+            border: 1px solid #d9e5ee;
+            box-shadow: 0 25px 70px rgba(31, 58, 79, 0.22);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+
+        .modal-header h2 {
+            margin: 4px 0 5px;
+            color: #183b58;
+        }
+
+        .modal-header p {
+            margin: 0;
+            color: #758b9e;
+            font-size: 12px;
+        }
+
+        .close-modal {
+            border: 0;
+            background: transparent;
+            color: #70879a;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .booking-summary {
+            padding: 13px;
+            margin-bottom: 17px;
+            border-radius: 8px;
+            background: #edf6fc;
+            border: 1px solid #d7e8f3;
+            color: #637b8e;
+            font-size: 12px;
+        }
+
+        .booking-summary strong {
+            color: #d8781d;
+        }
+
+        .booking-form {
+            display: grid;
+            gap: 13px;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 6px;
+            color: #5f768a;
+            font-size: 12px;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 12px;
+            border-radius: 8px;
+            border: 1px solid #d5e1ea;
+            background: #f9fbfd;
+            color: #183b58;
+            outline: none;
+            font: inherit;
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: #9aabba;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-color: #78aaca;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(74,137,178,0.10);
+        }
+
+        .form-field textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+            margin-top: 4px;
+        }
+
+        .cancel-button {
+            padding: 10px 15px;
+            border-radius: 7px;
+            border: 1px solid #d5e0e8;
+            background: #f5f8fa;
+            color: #5f7588;
+            cursor: pointer;
+        }
+
+        .confirm-button,
+        .done-button {
+            padding: 10px 16px;
+            border: 0;
+            border-radius: 7px;
+            background: #e98a2b;
+            color: #ffffff;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           CONFIRMATION
+           ========================================================= */
+
+        .confirmation-modal {
+            text-align: center;
+        }
+
+        .confirmation-icon {
+            width: 54px;
+            height: 54px;
+            margin: 0 auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #e7f7ee;
+            color: #29915b;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .confirmation-modal h2 {
+            margin: 0 0 7px;
+            color: #183b58;
+        }
+
+        .confirmation-modal > p {
+            color: #718799;
+            font-size: 13px;
+        }
+
+        .booking-id {
+            margin: 18px 0;
+            padding: 14px;
+            border-radius: 8px;
+            background: #f5f8fa;
+            border: 1px solid #e0e8ee;
+        }
+
+        .booking-id span {
+            display: block;
+            margin-bottom: 5px;
+            color: #8497a7;
+            font-size: 10px;
+        }
+
+        .booking-id strong {
+            color: #d8781d;
+            letter-spacing: 1px;
+        }
+
+        .confirmed-summary {
+            padding: 14px;
+            text-align: left;
+            border-radius: 8px;
+            background: #f7fafc;
+            border: 1px solid #dfe8ef;
+        }
+
+        .confirmed-summary div {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 6px 0;
+            color: #35536b;
+            font-size: 12px;
+        }
+
+        .confirmed-summary span {
+            color: #8497a7;
+        }
+
+        .desk-note {
+            color: #7a8e9f;
+            line-height: 1.55;
+        }
+
+        .done-button {
+            width: 100%;
+            margin-top: 3px;
+        }
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        .main footer {
+            margin-top: 28px;
+            padding-top: 18px;
+            border-top: 1px solid #dce6ed;
+            color: #8497a7;
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 1000px) {
+
+            .result-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .recommendation-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            .decision-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .recommendation-score {
+                width: fit-content;
+            }
+
+            .recommendation-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .result-scenario {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .result-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .decision-actions {
+                flex-direction: column;
+            }
+
+            .book-button,
+            .review-button,
+            .whatif-button {
+                width: 100%;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">S</div>
+
+            <div>
+                <h2>SAYLIV</h2>
+                <span>Freight Intelligence</span>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <p class="nav-title">MAIN</p>
+
+            <a href="index.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="analysis.html" class="nav-item">
+                <span>＋</span>
+                New Analysis
+            </a>
+
+
+            <p class="nav-title">ANALYSIS</p>
+
+            <a href="#recommendationBreakdown" class="nav-item active">
+                <span>↗</span>
+                Recommendation
+            </a>
+
+            <a href="#vesselMatch" class="nav-item">
+                <span>◈</span>
+                Vessel Match
+            </a>
+
+            <a href="#portCompatibility" class="nav-item">
+                <span>▣</span>
+                Port Compatibility
+            </a>
+
+            <a href="#riskIdle" class="nav-item">
+                <span>!</span>
+                Risk & Idle
+            </a>
+              
+            <a href="ocean.html" class="nav-item">
+                <span>⇄</span>
+                  Ocean Scanner
+            </a>
+            
+
+            <a href="cargo_booking.html" class="nav-item">
+                <span>⇄</span>
+                Cargo booking
+            </a>
+            <p class="nav-title">ACTIONS</p>
+
+            <a href="review.html" class="nav-item">
+                <span>▤</span>
+                Detailed Review
+            </a>
+
+            <a href="whatif.html" class="nav-item">
+                <span>◇</span>
+                What-if Simulator
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="status-dot"></div>
+
+            Prototype Mode
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    SAYLIV ANALYSIS
+                </p>
+
+                <h1>
+                    Analysis Result
+                </h1>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <a
+                    href="analysis.html"
+                    class="secondary-button"
+                >
+                    ← New Analysis
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- SCENARIO -->
+
+        <section class="result-scenario">
+
+            <div>
+
+                <p class="eyebrow">
+                    ANALYZED SCENARIO
+                </p>
+
+                <h2 id="scenarioTitle">
+                    Australia → Paradip
+                </h2>
+
+                <p id="scenarioDetails">
+                    50,000 MT Coal · Short-term charter
+                </p>
+
+            </div>
+
+
+            <div class="analysis-status">
+
+                <span class="status-check">
+                    ✓
+                </span>
+
+                Analysis Completed
+
+            </div>
+
+        </section>
+
+
+        <!-- FINAL RECOMMENDATION -->
+
+        <section class="decision-panel">
+
+            <div>
+
+                <p class="eyebrow">
+                    FINAL RECOMMENDATION
+                </p>
+
+                <h2 id="recommendation">
+                    Panamax → Paradip
+                </h2>
+
+                <p id="recommendationText">
+                    Panamax provides a suitable balance between
+                    cargo capacity, port compatibility, utilization
+                    and operational risk.
+                </p>
+
+            </div>
+
+
+            <div class="recommendation-score">
+
+                <span>
+                    Recommendation Score
+                </span>
+
+                <strong id="score">
+                    94
+                </strong>
+
+                <small>/ 100</small>
+
+            </div>
+
+
+            <div class="decision-actions">
+
+                <button
+                    type="button"
+                    class="book-button"
+                    onclick="openBookingModal()"
+                >
+                    Book This Charter →
+                </button>
+
+
+                <a
+                    href="review.html"
+                    class="review-button"
+                >
+                    View Detailed Review →
+                </a>
+
+
+                <a
+                    href="whatif.html"
+                    class="whatif-button"
+                >
+                    Try What-if →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUICK SNAPSHOT -->
+
+        <section class="result-cards">
+
+            <div class="result-card">
+
+                <span>
+                    Freight Outlook
+                </span>
+
+                <strong id="freight">
+                    Favourable
+                </strong>
+
+                <small>
+                    Forecast direction
+                </small>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    Entry Window
+                </span>
+
+                <strong id="entryWindow">
+                    10–18 Oct
+                </strong>
+
+                <small>
+                    Suggested charter window
+                </small>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    Overall Risk
+                </span>
+
+                <strong
+                    class="risk-medium"
+                    id="overallRisk"
+                >
+                    Medium
+                </strong>
+
+                <small>
+                    Combined exposure
+                </small>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    Expected Idle
+                </span>
+
+                <strong id="idleTime">
+                    ~14 hrs
+                </strong>
+
+                <small>
+                    Estimated waiting time
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DECISION BASIS
+             ===================================================== -->
+
+        <section
+            class="recommendation-section"
+            id="recommendationBreakdown"
+        >
+
+            <div class="section-heading">
+
+                <p class="eyebrow">
+                    DECISION BASIS
+                </p>
+
+                <h2>
+                    Why SAYLIV recommends this charter
+                </h2>
+
+            </div>
+
+
+            <div class="recommendation-grid">
+
+
+                <!-- FREIGHT -->
+
+                <div class="recommendation-card">
+
+                    <div class="recommendation-card-header">
+
+                        <h3>
+                            Freight Forecast
+                        </h3>
+
+                        <div class="recommendation-icon">
+                            ↗
+                        </div>
+
+                    </div>
+
+                    <p id="freightRecommendation">
+                        Forecast direction and expected freight
+                        movement support the selected charter window.
+                    </p>
+
+                    <b id="freightRecommendationStatus">
+                        Forecast-based decision
+                    </b>
+
+                </div>
+
+
+                <!-- VESSEL -->
+
+                <div
+                    class="recommendation-card"
+                    id="vesselMatch"
+                >
+
+                    <div class="recommendation-card-header">
+
+                        <h3>
+                            Vessel Match
+                        </h3>
+
+                        <div class="recommendation-icon">
+                            ◈
+                        </div>
+
+                    </div>
+
+                    <p id="vesselRecommendation">
+                        Vessel capacity and cargo fit are evaluated
+                        against the selected requirement.
+                    </p>
+
+                    <b id="vesselRecommendationStatus">
+                        Recommended vessel: Panamax
+                    </b>
+
+                </div>
+
+
+                <!-- PORT -->
+
+                <div
+                    class="recommendation-card"
+                    id="portCompatibility"
+                >
+
+                    <div class="recommendation-card-header">
+
+                        <h3>
+                            Port Compatibility
+                        </h3>
+
+                        <div class="recommendation-icon">
+                            ▣
+                        </div>
+
+                    </div>
+
+                    <p id="portRecommendation">
+                        Destination port constraints are checked
+                        before the vessel is recommended.
+                    </p>
+
+                    <b id="portRecommendationStatus">
+                        Port compatible
+                    </b>
+
+                </div>
+
+
+                <!-- RISK -->
+
+                <div
+                    class="recommendation-card"
+                    id="riskIdle"
+                >
+
+                    <div class="recommendation-card-header">
+
+                        <h3>
+                            Risk & Idle
+                        </h3>
+
+                        <div class="recommendation-icon">
+                            !
+                        </div>
+
+                    </div>
+
+                    <p id="riskRecommendation">
+                        Market, port congestion, delay exposure and
+                        vessel availability are considered.
+                    </p>
+
+                    <b id="riskRecommendationStatus">
+                        Medium exposure · ~14 hrs idle
+                    </b>
+
+                </div>
+
+
+                <!-- POOLING -->
+
+                <div class="recommendation-card">
+
+                    <div class="recommendation-card-header">
+
+                        <h3>
+                            Freight Pooling
+                        </h3>
+
+                        <div class="recommendation-icon">
+                            ⇄
+                        </div>
+
+                    </div>
+
+                    <p id="poolingRecommendation">
+                        Compatible cargo can potentially be pooled
+                        to improve vessel utilization.
+                    </p>
+
+                    <b id="poolingStatus">
+                        Utilization opportunity
+                    </b>
+
+                </div>
+
+
+                <!-- CARBON -->
+
+                <div class="recommendation-card">
+
+                    <div class="recommendation-card-header">
+
+                        <h3>
+                            Carbon Planning
+                        </h3>
+
+                        <div class="recommendation-icon">
+                            ◌
+                        </div>
+
+                    </div>
+
+                    <p id="carbonRecommendation">
+                        Estimated emissions are considered alongside
+                        vessel utilization and operational planning.
+                    </p>
+
+                    <b id="carbonStatus">
+                        Prototype estimate
+                    </b>
+
+                </div>
+
+
+                <!-- END-TO-END -->
+
+                <div class="recommendation-card">
+
+                    <div class="recommendation-card-header">
+
+                        <h3>
+                            End-To-End
+                        </h3>
+
+                        <div class="recommendation-icon">
+                            ↔
+                        </div>
+
+                    </div>
+
+                    <p id="End-To-EndRecommendation">
+                        After port discharge, representative rail and
+                        road options are compared.
+                    </p>
+
+                    <b id="End-To-EndStatus">
+                        Rail / Road comparison
+                    </b>
+                   
+                    <button
+                       type="button"
+                       onclick="window.location.href='End-To-End.html'"
+                       class="why-button"
+                       >
+                          Why this recommendation →
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FINAL CTA
+             ===================================================== -->
+
+        <section class="review-cta">
+
+            <div class="decision-panel">
+
+                <div>
+
+                    <p class="eyebrow">
+                        NEXT STEP
+                    </p>
+
+                    <h2>
+                        Ready to inspect the complete decision?
+                    </h2>
+
+                    <p>
+                        View the detailed analysis for freight,
+                        vessel alternatives, port checks, risk,
+                        idle exposure and supporting intelligence.
+                    </p>
+
+                </div>
+
+
+                <div class="decision-actions">
+
+                    <a
+                        href="review.html"
+                        class="review-button"
+                    >
+                        View Detailed Review →
+                    </a>
+
+                    <button
+                        type="button"
+                        class="book-button"
+                        onclick="openBookingModal()"
+                    >
+                        Book This Charter →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+            SAYLIV • AI-assisted freight decision support • Prototype
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- =============================================================
+     BOOKING FORM
+     ============================================================= -->
+
+<div
+    class="booking-overlay"
+    id="bookingOverlay"
+    onclick="closeBookingOnOverlay(event)"
+>
+
+    <div class="booking-modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <p class="eyebrow">
+                    CHARTER REQUEST
+                </p>
+
+                <h2>
+                    Book This Charter
+                </h2>
+
+                <p>
+                    Submit a prototype booking request for review.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="close-modal"
+                onclick="closeBookingModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="booking-summary">
+
+            Recommended charter:
+
+            <strong id="bookingRecommendation">
+                Panamax → Paradip
+            </strong>
+
+        </div>
+
+
+        <form
+            class="booking-form"
+            id="bookingForm"
+        >
+
+            <div class="form-field">
+
+                <label for="companyName">
+                    Company Name
+                </label>
+
+                <input
+                    id="companyName"
+                    type="text"
+                    placeholder="e.g. ABC Logistics"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="contactEmail">
+                    Contact Email
+                </label>
+
+                <input
+                    id="contactEmail"
+                    type="email"
+                    placeholder="name@company.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="contactPhone">
+                    Contact Phone
+                </label>
+
+                <input
+                    id="contactPhone"
+                    type="tel"
+                    placeholder="+91 9876543210"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="preferredLaycan">
+                    Preferred Laycan
+                </label>
+
+                <input
+                    id="preferredLaycan"
+                    type="text"
+                    placeholder="e.g. 10–18 Oct 2026"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="bookingNotes">
+                    Notes
+                    <span style="opacity:.45;">
+                        (optional)
+                    </span>
+                </label>
+
+                <textarea
+                    id="bookingNotes"
+                    placeholder="Any additional requirement..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    onclick="closeBookingModal()"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="confirm-button"
+                >
+                    Confirm Booking Request
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =============================================================
+     CONFIRMATION
+     ============================================================= -->
+
+<div
+    class="confirmation-overlay"
+    id="confirmationOverlay"
+>
+
+    <div class="confirmation-modal">
+
+        <div class="confirmation-icon">
+            ✓
+        </div>
+
+        <h2>
+            Booking Request Recorded
+        </h2>
+
+        <p>
+            Your prototype charter request has been successfully recorded.
+        </p>
+
+
+        <div class="booking-id">
+
+            <span>
+                Booking ID
+            </span>
+
+            <strong id="bookingId">
+                SAY-CH-000001
+            </strong>
+
+        </div>
+
+
+        <div class="confirmed-summary">
+
+            <div>
+                <span>
+                    Recommended Charter
+                </span>
+
+                <strong id="confirmedCharter">
+                    Panamax → Paradip
+                </strong>
+            </div>
+
+
+            <div>
+                <span>
+                    Cargo
+                </span>
+
+                <strong id="confirmedCargo">
+                    50,000 MT Coal
+                </strong>
+            </div>
+
+
+            <div>
+                <span>
+                    Freight Outlook
+                </span>
+
+                <strong id="confirmedFreight">
+                    Favourable
+                </strong>
+            </div>
+
+
+            <div>
+                <span>
+                    Risk
+                </span>
+
+                <strong id="confirmedRisk">
+                    Medium
+                </strong>
+            </div>
+
+
+            <div>
+                <span>
+                    Expected Idle
+                </span>
+
+                <strong id="confirmedIdle">
+                    ~14 hrs
+                </strong>
+            </div>
+
+        </div>
+
+
+        <p class="desk-note">
+            Our chartering desk will review the request,
+            validate vessel and port conditions, and proceed
+            with the next operational steps.
+        </p>
+
+
+        <button
+            type="button"
+            class="done-button"
+            onclick="closeConfirmation()"
+        >
+            Done
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="result.js"></script>
+
+
+<script>
+
+    /* =========================================================
+       RESULT DATA
+       ========================================================= */
+
+    function setResultText(id, value) {
+
+        const element =
+            document.getElementById(id);
+
+        if (
+            element &&
+            value !== undefined &&
+            value !== null
+        ) {
+            element.textContent = value;
+        }
+
+    }
+
+
+    function getSaylivResult() {
+
+        try {
+
+            return {
+
+                result:
+                    JSON.parse(
+                        localStorage.getItem(
+                            "saylivResult"
+                        ) || "{}"
+                    ),
+
+                input:
+                    JSON.parse(
+                        localStorage.getItem(
+                            "saylivInput"
+                        ) || "{}"
+                    )
+
+            };
+
+        } catch (error) {
+
+            console.warn(
+                "Could not read SAYLIV result:",
+                error
+            );
+
+            return {
+                result: {},
+                input: {}
+            };
+
+        }
+
+    }
+
+
+    /* =========================================================
+       POPULATE PAGE
+       ========================================================= */
+
+    function populateRecommendationLayer() {
+
+        const data =
+            getSaylivResult();
+
+        const result =
+            data.result;
+
+        const input =
+            data.input;
+
+
+        const vessel =
+            result.recommended_vessel ||
+            input.vessel ||
+            "Panamax";
+
+        const destination =
+            result.destination ||
+            input.destination ||
+            "Paradip";
+
+        const origin =
+            result.origin ||
+            input.origin ||
+            "Australia";
+
+        const cargo =
+            result.cargo ||
+            input.cargo ||
+            50000;
+
+        const commodity =
+            result.commodity ||
+            input.commodity ||
+            "Coal";
+
+        const risk =
+            result.risk ||
+            "Medium";
+
+        const idle =
+            result.expected_idle ??
+            14;
+
+        const freightTrend =
+            result.freight_trend ||
+            "Favourable";
+
+        const score =
+            result.recommendation_score ??
+            94;
+
+
+        /* Main recommendation */
+
+        setResultText(
+            "recommendation",
+            vessel + " → " + destination
+        );
+
+        setResultText(
+            "bookingRecommendation",
+            vessel + " → " + destination
+        );
+
+        setResultText(
+            "confirmedCharter",
+            vessel + " → " + destination
+        );
+
+        setResultText(
+            "score",
+            score
+        );
+
+
+        /* Scenario */
+
+        setResultText(
+            "scenarioTitle",
+            origin + " → " + destination
+        );
+
+        setResultText(
+            "scenarioDetails",
+            Number(cargo).toLocaleString() +
+            " MT " +
+            commodity +
+            " · " +
+            (
+                input.contract ||
+                result.contract ||
+                "Short-term"
+            ) +
+            " charter"
+        );
+
+
+        /* Snapshot */
+
+        setResultText(
+            "freight",
+            freightTrend
+        );
+
+        setResultText(
+            "overallRisk",
+            risk
+        );
+
+        setResultText(
+            "idleTime",
+            "~" + idle + " hrs"
+        );
+
+
+        /* Confirmation */
+
+        setResultText(
+            "confirmedCargo",
+            Number(cargo).toLocaleString() +
+            " MT " +
+            commodity
+        );
+
+        setResultText(
+            "confirmedFreight",
+            freightTrend
+        );
+
+        setResultText(
+            "confirmedRisk",
+            risk
+        );
+
+        setResultText(
+            "confirmedIdle",
+            "~" + idle + " hrs"
+        );
+
+
+        /* Vessel */
+
+        setResultText(
+            "vesselRecommendationStatus",
+            "Recommended vessel: " + vessel
+        );
+
+
+        /* Risk */
+
+        setResultText(
+            "riskRecommendationStatus",
+            risk +
+            " exposure · ~" +
+            idle +
+            " hrs idle"
+        );
+
+
+        /* Freight */
+
+        if (result.forecast_message) {
+
+            setResultText(
+                "freightRecommendation",
+                result.forecast_message
+            );
+
+        }
+
+
+        if (result.forecast_model) {
+
+            setResultText(
+                "freightRecommendationStatus",
+                result.forecast_model +
+                " · " +
+                (
+                    result.forecast_confidence ||
+                    "—"
+                ) +
+                "% confidence"
+            );
+
+        }
+
+
+        /* Port */
+
+        if (result.port_status) {
+
+            setResultText(
+                "portRecommendationStatus",
+                result.port_status
+            );
+
+        }
+
+
+        /* Risk */
+
+        if (result.risk_breakdown) {
+
+            setResultText(
+                "riskRecommendation",
+                "Market, port, delay and vessel availability " +
+                "signals are combined into the overall risk assessment."
+            );
+
+        }
+
+
+        /* Pooling */
+
+        if (
+            result.pooling &&
+            result.pooling.message
+        ) {
+
+            setResultText(
+                "poolingRecommendation",
+                result.pooling.message
+            );
+
+        }
+
+
+        /* Carbon */
+
+        if (
+            result.carbon &&
+            result.carbon.efficiency_note
+        ) {
+
+            setResultText(
+                "carbonRecommendation",
+                result.carbon.efficiency_note
+            );
+
+        }
+
+
+        /* Intermodal */
+
+        if (
+            result.intermodal &&
+            result.intermodal.recommended_mode
+        ) {
+
+            setResultText(
+                "intermodalRecommendation",
+                result.intermodal.reason ||
+                "Post-port movement can be compared using rail and road options."
+            );
+
+            setResultText(
+                "intermodalStatus",
+                "Prototype recommendation: " +
+                result.intermodal.recommended_mode
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       BOOKING
+       ========================================================= */
+
+    function openBookingModal() {
+
+        const overlay =
+            document.getElementById(
+                "bookingOverlay"
+            );
+
+        if (overlay) {
+
+            overlay.classList.add("show");
+
+            setTimeout(
+                function() {
+
+                    const company =
+                        document.getElementById(
+                            "companyName"
+                        );
+
+                    if (company) {
+                        company.focus();
+                    }
+
+                },
+                100
+            );
+
+        }
+
+    }
+
+
+    function closeBookingModal() {
+
+        const overlay =
+            document.getElementById(
+                "bookingOverlay"
+            );
+
+        if (overlay) {
+            overlay.classList.remove("show");
+        }
+
+    }
+
+
+    function closeBookingOnOverlay(event) {
+
+        if (
+            event.target ===
+            document.getElementById(
+                "bookingOverlay"
+            )
+        ) {
+
+            closeBookingModal();
+
+        }
+
+    }
+
+
+    /* =========================================================
+       BOOKING FORM
+       ========================================================= */
+
+    document
+        .getElementById("bookingForm")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const company =
+                    document
+                        .getElementById(
+                            "companyName"
+                        )
+                        .value
+                        .trim();
+
+                const email =
+                    document
+                        .getElementById(
+                            "contactEmail"
+                        )
+                        .value
+                        .trim();
+
+                const phone =
+                    document
+                        .getElementById(
+                            "contactPhone"
+                        )
+                        .value
+                        .trim();
+
+                const laycan =
+                    document
+                        .getElementById(
+                            "preferredLaycan"
+                        )
+                        .value
+                        .trim();
+
+                const notes =
+                    document
+                        .getElementById(
+                            "bookingNotes"
+                        )
+                        .value
+                        .trim();
+
+
+                if (
+                    !company ||
+                    !email ||
+                    !phone ||
+                    !laycan
+                ) {
+                    return;
+                }
+
+
+                const data =
+                    getSaylivResult();
+
+                const result =
+                    data.result;
+
+                const input =
+                    data.input;
+
+
+                const vessel =
+                    result.recommended_vessel ||
+                    input.vessel ||
+                    "Panamax";
+
+                const destination =
+                    result.destination ||
+                    input.destination ||
+                    "Paradip";
+
+                const cargo =
+                    result.cargo ||
+                    input.cargo ||
+                    50000;
+
+                const commodity =
+                    result.commodity ||
+                    input.commodity ||
+                    "Coal";
+
+
+                const bookingId =
+                    "SAY-CH-" +
+                    Date.now()
+                        .toString()
+                        .slice(-6);
+
+
+                const booking = {
+
+                    bookingId: bookingId,
+
+                    company: company,
+
+                    email: email,
+
+                    phone: phone,
+
+                    laycan: laycan,
+
+                    notes: notes,
+
+                    recommendation:
+                        vessel +
+                        " → " +
+                        destination,
+
+                    cargo:
+                        cargo +
+                        " MT " +
+                        commodity,
+
+                    createdAt:
+                        new Date().toISOString()
+
+                };
+
+
+                localStorage.setItem(
+                    "saylivBooking",
+                    JSON.stringify(
+                        booking
+                    )
+                );
+
+
+                setResultText(
+                    "bookingId",
+                    bookingId
+                );
+
+
+                setResultText(
+                    "confirmedCharter",
+                    vessel +
+                    " → " +
+                    destination
+                );
+
+
+                setResultText(
+                    "confirmedCargo",
+                    Number(cargo).toLocaleString() +
+                    " MT " +
+                    commodity
+                );
+
+
+                closeBookingModal();
+
+
+                const confirmation =
+                    document.getElementById(
+                        "confirmationOverlay"
+                    );
+
+                if (confirmation) {
+
+                    confirmation.classList.add(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* =========================================================
+       CONFIRMATION
+       ========================================================= */
+
+    function closeConfirmation() {
+
+        const overlay =
+            document.getElementById(
+                "confirmationOverlay"
+            );
+
+        if (overlay) {
+
+            overlay.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE
+       ========================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            populateRecommendationLayer();
+
+        }
+    );
+
+</script>
+
+<!-- DOWNLOAD REPORT BUTTON -->
+
+<style>
+.report-download-button {
+    display: block;
+    margin: 35px 0 25px auto;
+    padding: 13px 24px;
+
+    background: #f28c28;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: background 0.2s ease;
+}
+
+.report-download-button:hover {
+    background: #d97516;
+}
+</style>
+
+<button
+    type="button"
+    class="report-download-button"
+    onclick="downloadReport()"
+>
+    ↓ Download / Save Report as PDF
+</button>
+
+<script>
+function downloadReport() {
+    window.location.href = "report.html";
+}
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+date,route,origin,destination,vessel_type,freight_rate,unit
+2026-01-20,AUS-PAR,Hay Point,Paradip,Panamax,13.8,$/tonne
+2026-01-20,ZAF-PAR,Richards Bay,Paradip,Panamax,13.3,$/tonne
+2026-03-06,IDN-SK-PAR,South Kalimantan,Paradip,Supramax,15.2,$/tonne
+2026-03-06,IDN-SK-KRI,South Kalimantan,Krishnapatnam,Supramax,15.9,$/tonne
+2026-03-06,ZAF-PAR,Richards Bay,Paradip,Panamax,18.45,$/tonne
+2026-03-06,AUS-PAR,Hay Point,Paradip,Panamax,22.0,$/tonne
+2026-04-22,IDN-PAR,East Kalimantan,Paradip,Supramax,16.25,$/tonne
+2026-04-22,AUS-PAR,Hay Point,Paradip,Panamax,21.3,$/tonne
+2026-04-22,ZAF-PAR,Richards Bay,Paradip,Panamax,18.55,$/tonne
+2026-06-12,IDN-PAR,East Kalimantan,Paradip,Supramax,17.8,$/tonne
+2026-06-12,AUS-PAR,Hay Point,Paradip,Panamax,23.1,$/tonne
+2026-06-12,ZAF-PAR,Richards Bay,Paradip,Panamax,20.6,$/tonne
+2026-06-15,IDN-PAR,East Kalimantan,Paradip,Supramax,17.05,$/tonne
+2026-06-15,AUS-PAR,Hay Point,Paradip,Panamax,22.45,$/tonne
+2026-06-15,ZAF-PAR,Richards Bay,Paradip,Panamax,19.85,$/tonne
+2026-08-12,IDN-PAR,East Kalimantan,Paradip,Supramax,16.05,$/tonne
+2026-08-12,AUS-PAR,Hay Point,Paradip,Panamax,21.1,$/tonne
+2026-08-12,ZAF-PAR,Richards Bay,Paradip,Panamax,18.6,$/tonne
+2026-09-03,IDN-PAR,East Kalimantan,Paradip,Supramax,14.15,$/tonne
+2026-09-03,AUS-PAR,Hay Point,Paradip,Panamax,17.05,$/tonne
+2026-09-03,ZAF-PAR,Richards Bay,Paradip,Panamax,15.95,$/tonne
+2026-09-07,IDN-PAR,East Kalimantan,Paradip,Supramax,16.85,$/tonne
+2026-09-07,AUS-PAR,Hay Point,Paradip,Panamax,23.0,$/tonne
+2026-09-07,ZAF-PAR,Richards Bay,Paradip,Panamax,20.3,$/tonne

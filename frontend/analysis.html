@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SAYLIV | New Analysis</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                S
+            </div>
+
+            <div>
+                <h2>SAYLIV</h2>
+                <span>Freight Intelligence</span>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <p class="nav-title">
+                MAIN
+            </p>
+
+
+            <a href="index.html" class="nav-item">
+
+                <span>⌂</span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="analysis.html" class="nav-item active">
+
+                <span>＋</span>
+
+                New Analysis
+
+            </a>
+
+
+            <p class="nav-title">
+                ANALYSIS
+            </p>
+
+
+            <button class="nav-item">
+                <span>↗</span>
+                Freight Forecast
+            </button>
+
+
+            <button class="nav-item">
+                <span>◈</span>
+                Vessel Match
+            </button>
+
+
+            <button class="nav-item">
+                <span>▣</span>
+                Port Compatibility
+            </button>
+
+
+            <button class="nav-item">
+                <span>!</span>
+                Risk & Idle
+            </button>
+
+
+            <p class="nav-title">
+                INTELLIGENCE
+            </p>
+
+
+            <button class="nav-item">
+                <span>⇄</span>
+                Freight Pooling
+            </button>
+
+
+            <button class="nav-item">
+                <span>◌</span>
+                Carbon Planning
+            </button>
+
+
+            <button class="nav-item">
+                <span>↔</span>
+                Intermodal
+            </button>
+
+
+            <button class="nav-item">
+                <span>◇</span>
+                What-if Simulator
+            </button>
+
+
+            <!-- OCEAN SCANNER -->
+            <a href="ocean.html" class="nav-item">
+
+                <span>⌁</span>
+
+                Ocean Scanner
+
+            </a>
+
+
+            <button class="nav-item">
+                <span>☷</span>
+                Planner
+            </button>
+
+
+            <button class="nav-item">
+                <span>☁</span>
+                Weather
+            </button>
+
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="status-dot"></div>
+
+            Prototype Mode
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    SAYLIV ANALYSIS
+                </p>
+
+                <h1>
+                    New Analysis
+                </h1>
+
+            </div>
+
+
+            <a
+                href="index.html"
+                class="primary-button"
+            >
+                ← Dashboard
+            </a>
+
+        </header>
+
+
+
+        <section class="analysis-intro">
+
+            <p class="eyebrow">
+                CHARTERING SCENARIO
+            </p>
+
+            <h2>
+                Enter cargo and voyage details
+            </h2>
+
+            <p>
+                SAYLIV will evaluate freight trends, vessel suitability,
+                port compatibility, operational risk and idle-time exposure.
+            </p>
+
+        </section>
+
+
+
+        <form
+            id="analysisForm"
+            action="result.html"
+        >
+
+
+            <!-- CARGO -->
+            <section class="form-panel">
+
+                <div class="form-heading">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            01 · CARGO
+                        </p>
+
+                        <h2>
+                            Cargo Details
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-grid">
+
+
+                    <div class="field">
+
+                        <label for="commodity">
+                            Commodity
+                        </label>
+
+
+                        <select id="commodity">
+
+                            <option value="Coal">
+                                Coal
+                            </option>
+
+                            <option value="Iron Ore">
+                                Iron Ore
+                            </option>
+
+                            <option value="Coke">
+                                Coke
+                            </option>
+
+                            <option value="Limestone">
+                                Limestone
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label for="cargo">
+                            Cargo Quantity
+                        </label>
+
+
+                        <div class="input-unit">
+
+                            <input
+                                type="number"
+                                id="cargo"
+                                value="50000"
+                                min="1000"
+                                required
+                            >
+
+
+                            <span>
+                                MT
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- VOYAGE -->
+            <section class="form-panel">
+
+
+                <div class="form-heading">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            02 · VOYAGE
+                        </p>
+
+                        <h2>
+                            Route Details
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-grid">
+
+
+                    <div class="field">
+
+                        <label for="origin">
+                            Origin Country
+                        </label>
+
+
+                        <select id="origin">
+
+                            <option value="Australia">
+                                Australia
+                            </option>
+
+                            <option value="United States">
+                                United States
+                            </option>
+
+                            <option value="Mozambique">
+                                Mozambique
+                            </option>
+
+                            <option value="Russia">
+                                Russia
+                            </option>
+
+                            <option value="Indonesia">
+                                Indonesia
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label for="loadingPort">
+                            Loading Port
+                        </label>
+
+
+                        <select id="loadingPort">
+
+                            <option value="Newcastle">
+                                Newcastle
+                            </option>
+
+                            <option value="Hay Point">
+                                Hay Point
+                            </option>
+
+                            <option value="Gladstone">
+                                Gladstone
+                            </option>
+
+                            <option value="Abbot Point">
+                                Abbot Point
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label for="destination">
+                            Destination Port
+                        </label>
+
+
+                        <select id="destination">
+
+                            <option value="Paradip">
+                                Paradip
+                            </option>
+
+                            <option value="Visakhapatnam">
+                                Visakhapatnam
+                            </option>
+
+                            <option value="Gangavaram">
+                                Gangavaram
+                            </option>
+
+                            <option value="Gopalpur">
+                                Gopalpur
+                            </option>
+
+                            <option value="Dhamra">
+                                Dhamra
+                            </option>
+
+                            <option value="Haldia">
+                                Haldia
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label for="arrivalDate">
+                            Required Arrival Date
+                        </label>
+
+
+                        <input
+                            type="date"
+                            id="arrivalDate"
+                            value="2026-10-15"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- CHARTER -->
+            <section class="form-panel">
+
+
+                <div class="form-heading">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            03 · CHARTER
+                        </p>
+
+                        <h2>
+                            Charter Preferences
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-grid">
+
+
+                    <div class="field">
+
+                        <label for="vessel">
+                            Preferred Vessel
+                        </label>
+
+
+                        <select id="vessel">
+
+                            <option value="Any">
+                                Any suitable vessel
+                            </option>
+
+                            <option value="Panamax">
+                                Panamax
+                            </option>
+
+                            <option value="Supramax">
+                                Supramax
+                            </option>
+
+                            <option value="Capesize">
+                                Capesize
+                            </option>
+
+                            <option value="Handysize">
+                                Handysize
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label for="contract">
+                            Contract Duration
+                        </label>
+
+
+                        <select id="contract">
+
+                            <option value="Short-term">
+                                Short-term
+                            </option>
+
+                            <option value="Medium-term">
+                                Medium-term
+                            </option>
+
+                            <option value="Spot">
+                                Spot
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SUBMIT -->
+            <section class="run-section">
+
+
+                <div>
+
+                    <p class="eyebrow">
+                        READY TO ANALYZE
+                    </p>
+
+
+                    <h3>
+                        Evaluate this chartering scenario
+                    </h3>
+
+
+                    <p>
+                        Prototype analysis uses representative data for demonstration.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="run-button"
+                >
+                    Run SAYLIV Analysis →
+                </button>
+
+
+            </section>
+
+
+        </form>
+
+
+    </main>
+
+
+</div>
+
+
+</body>
+</html>

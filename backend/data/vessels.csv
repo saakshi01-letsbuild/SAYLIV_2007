@@ -1,0 +1,5 @@
+vessel_type,capacity_mt,loa_m,beam_m,draft_m
+Capesize,182000,290,45,18.2
+Panamax,82500,229,32.25,14.43
+Supramax,63500,199.98,32.24,13.418
+Handysize,38200,180,29.8,10.538

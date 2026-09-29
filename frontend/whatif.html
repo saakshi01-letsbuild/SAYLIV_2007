@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SAYLIV | What-if Simulator</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #172a46;
+            color: white;
+            padding: 24px 16px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .brand {
+            padding: 0 12px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            margin-bottom: 20px;
+        }
+
+        .brand h1 {
+            font-size: 25px;
+            letter-spacing: 1px;
+        }
+
+        .brand p {
+            margin-top: 5px;
+            font-size: 11px;
+            color: #aebbd0;
+        }
+
+        .nav-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #91a1b8;
+            margin: 18px 12px 8px;
+        }
+
+        .nav-link {
+            display: block;
+            text-decoration: none;
+            color: #d8e0eb;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            background: #223b60;
+            color: white;
+        }
+
+        .nav-link.active {
+            background: #e9822b;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* =========================
+           MAIN LAYOUT
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+            padding: 32px 38px 50px;
+            width: calc(100% - 250px);
+        }
+
+        .page-header {
+            max-width: 1200px;
+            margin: 0 auto 26px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #52647b;
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .back-link:hover {
+            color: #e9822b;
+        }
+
+        .page-header h2 {
+            font-size: 30px;
+            color: #172a46;
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            color: #68768a;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           CONTENT WIDTH
+        ========================= */
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* =========================
+           BASELINE CARD
+        ========================= */
+
+        .baseline {
+            background: white;
+            border: 1px solid #dfe4ea;
+            border-radius: 9px;
+            padding: 20px;
+            margin-bottom: 22px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: #172a46;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .baseline-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .baseline-item {
+            background: #f7f9fb;
+            border: 1px solid #e4e8ed;
+            border-radius: 6px;
+            padding: 13px;
+        }
+
+        .baseline-item span {
+            display: block;
+            font-size: 11px;
+            color: #758195;
+            margin-bottom: 5px;
+        }
+
+        .baseline-item strong {
+            color: #243650;
+            font-size: 14px;
+        }
+
+        /* =========================
+           SIMULATOR CARD
+        ========================= */
+
+        .simulator {
+            background: white;
+            border: 1px solid #dfe4ea;
+            border-radius: 9px;
+            padding: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #33445c;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 43px;
+            border: 1px solid #cfd6df;
+            border-radius: 6px;
+            padding: 0 12px;
+            font-size: 14px;
+            color: #25364d;
+            background: #fff;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #5d84b5;
+        }
+
+        .range-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        input[type="range"] {
+            height: 5px;
+            padding: 0;
+            accent-color: #e9822b;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .range-value {
+            min-width: 90px;
+            text-align: right;
+            font-weight: 700;
+            color: #172a46;
+            font-size: 14px;
+        }
+
+        .helper {
+            font-size: 11px;
+            color: #7b8798;
+            margin-top: 6px;
+        }
+
+        .capacity-box {
+            margin-top: 10px;
+            background: #f6f8fa;
+            border: 1px solid #e1e5ea;
+            padding: 11px 13px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #637086;
+        }
+
+        .capacity-box strong {
+            color: #263a56;
+        }
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .button-row {
+            margin-top: 25px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 6px;
+            padding: 12px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: #eef1f5;
+            color: #40516a;
+        }
+
+        .btn-secondary:hover {
+            background: #e3e7ec;
+        }
+
+        .btn-primary {
+            background: #e9822b;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #d9701d;
+        }
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        #simulationResult {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .result-header {
+            background: #172a46;
+            color: white;
+            border-radius: 9px 9px 0 0;
+            padding: 20px 22px;
+        }
+
+        .result-header h3 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .result-header p {
+            font-size: 12px;
+            color: #c5cfdd;
+        }
+
+        .result-body {
+            background: white;
+            border: 1px solid #dfe4ea;
+            border-top: none;
+            border-radius: 0 0 9px 9px;
+            padding: 22px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .metric-card {
+            border: 1px solid #e0e5ea;
+            border-radius: 7px;
+            padding: 16px;
+            background: #fafbfc;
+        }
+
+        .metric-card .label {
+            font-size: 11px;
+            color: #748196;
+            margin-bottom: 7px;
+        }
+
+        .metric-card .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1d304a;
+        }
+
+        .metric-card .small {
+            margin-top: 5px;
+            font-size: 11px;
+            color: #788597;
+        }
+
+        .positive {
+            color: #27835b !important;
+        }
+
+        .negative {
+            color: #bd4a4a !important;
+        }
+
+        .neutral {
+            color: #607088 !important;
+        }
+
+        /* =========================
+           COMPARISON TABLE
+        ========================= */
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #e7ebef;
+            font-size: 13px;
+        }
+
+        .comparison-table th {
+            color: #647188;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            background: #f7f8fa;
+        }
+
+        .comparison-table td {
+            color: #30415a;
+        }
+
+        /* =========================
+           VERDICT
+        ========================= */
+
+        .verdict {
+            margin-top: 22px;
+            border: 1px solid #d9e1e8;
+            border-left: 4px solid #e9822b;
+            border-radius: 6px;
+            padding: 18px;
+            background: #fffaf5;
+        }
+
+        .verdict h4 {
+            color: #273a54;
+            margin-bottom: 7px;
+            font-size: 15px;
+        }
+
+        .verdict p {
+            color: #59687b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .impact-box {
+            margin-top: 16px;
+            padding: 14px;
+            border-radius: 6px;
+            background: #f6f8fa;
+            border: 1px solid #e0e5ea;
+        }
+
+        .impact-box strong {
+            color: #273a54;
+        }
+
+        .disclaimer {
+            margin-top: 18px;
+            padding: 11px 13px;
+            background: #f7f8fa;
+            border: 1px solid #e3e6ea;
+            border-radius: 5px;
+            font-size: 11px;
+            color: #7a8493;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .baseline-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .comparison-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main {
+                padding: 28px 24px 45px;
+            }
+        }
+
+        @media (max-width: 760px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                min-height: 0;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 24px 16px 40px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .baseline-grid,
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-row {
+                justify-content: stretch;
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .comparison-table {
+                font-size: 12px;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 9px 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <h1>SAYLIV</h1>
+            <p>Freight Intelligence & Decision Support</p>
+        </div>
+
+        <div class="nav-title">Main</div>
+
+        <a href="index.html" class="nav-link">Dashboard</a>
+        <a href="analysis.html" class="nav-link">New Analysis</a>
+        <a href="result.html" class="nav-link">Analysis Result</a>
+
+        <div class="nav-title">Decision Tools</div>
+
+        <a href="result.html" class="nav-link">Freight Forecast</a>
+        <a href="result.html" class="nav-link">Vessel Match</a>
+        <a href="result.html" class="nav-link">Port Compatibility</a>
+        <a href="result.html" class="nav-link">Risk & Idle</a>
+        <a href="#" class="nav-link">Freight Pooling</a>
+        <a href="#" class="nav-link">Carbon Planning</a>
+        <a href="#" class="nav-link">Intermodal</a>
+
+        <a href="whatif.html" class="nav-link active">
+            What-if Simulator
+        </a>
+
+        <a href="#" class="nav-link">Ocean Scanner</a>
+        <a href="#" class="nav-link">Planner</a>
+        <a href="#" class="nav-link">Weather</a>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main">
+
+        <div class="content">
+
+            <div class="page-header">
+
+                <a href="result.html" class="back-link">
+                    ← Back to Analysis Result
+                </a>
+
+                <h2>What-if Simulator</h2>
+
+                <p>
+                    Adjust the shipment scenario and compare it with the original
+                    recommendation before making a chartering decision.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 ORIGINAL BASELINE
+            ========================= -->
+
+            <section class="baseline">
+
+                <div class="section-title">
+                    Original Recommendation
+                </div>
+
+                <div class="baseline-grid">
+
+                    <div class="baseline-item">
+                        <span>Cargo</span>
+                        <strong id="baseCargo">—</strong>
+                    </div>
+
+                    <div class="baseline-item">
+                        <span>Vessel</span>
+                        <strong id="baseVessel">—</strong>
+                    </div>
+
+                    <div class="baseline-item">
+                        <span>Destination</span>
+                        <strong id="baseDestination">—</strong>
+                    </div>
+
+                    <div class="baseline-item">
+                        <span>Arrival</span>
+                        <strong id="baseArrival">—</strong>
+                    </div>
+
+                    <div class="baseline-item">
+                        <span>Forecast Freight</span>
+                        <strong id="baseFreight">—</strong>
+                    </div>
+
+                    <div class="baseline-item">
+                        <span>Risk</span>
+                        <strong id="baseRisk">—</strong>
+                    </div>
+
+                    <div class="baseline-item">
+                        <span>Expected Idle</span>
+                        <strong id="baseIdle">—</strong>
+                    </div>
+
+                    <div class="baseline-item">
+                        <span>Recommendation Score</span>
+                        <strong id="baseScore">—</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SIMULATOR
+            ========================= -->
+
+            <section class="simulator">
+
+                <div class="section-title">
+                    Change Scenario
+                </div>
+
+                <form id="whatIfForm">
+
+                    <div class="form-grid">
+
+                        <!-- Cargo -->
+
+                        <div class="form-group full">
+
+                            <label for="cargoSlider">
+                                Cargo Quantity
+                            </label>
+
+                            <div class="range-row">
+
+                                <input
+                                    type="range"
+                                    id="cargoSlider"
+                                    min="20000"
+                                    max="150000"
+                                    step="2500"
+                                    value="50000"
+                                >
+
+                                <div class="range-value">
+                                    <span id="cargoValue">50,000</span> MT
+                                </div>
+
+                            </div>
+
+                            <div class="helper">
+                                Adjust cargo quantity to test vessel utilization.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Vessel -->
+
+                        <div class="form-group">
+
+                            <label for="vessel">
+                                Vessel Type
+                            </label>
+
+                            <select id="vessel">
+
+                                <option value="Handysize">
+                                    Handysize
+                                </option>
+
+                                <option value="Supramax">
+                                    Supramax
+                                </option>
+
+                                <option value="Panamax" selected>
+                                    Panamax
+                                </option>
+
+                                <option value="Capesize">
+                                    Capesize
+                                </option>
+
+                            </select>
+
+                            <div class="capacity-box">
+                                Capacity:
+                                <strong id="capacityValue">
+                                    82,500 MT
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Destination -->
+
+                        <div class="form-group">
+
+                            <label for="destination">
+                                Destination Port
+                            </label>
+
+                            <select id="destination">
+
+                                <option value="Paradip">
+                                    Paradip
+                                </option>
+
+                                <option value="Visakhapatnam">
+                                    Visakhapatnam
+                                </option>
+
+                                <option value="Gangavaram">
+                                    Gangavaram
+                                </option>
+
+                                <option value="Gopalpur">
+                                    Gopalpur
+                                </option>
+
+                                <option value="Dhamra">
+                                    Dhamra
+                                </option>
+
+                                <option value="Haldia">
+                                    Haldia
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Arrival -->
+
+                        <div class="form-group">
+
+                            <label for="arrivalDate">
+                                Arrival Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="arrivalDate"
+                                value="2026-10-15"
+                            >
+
+                        </div>
+
+
+                        <!-- Freight -->
+
+                        <div class="form-group">
+
+                            <label for="freightSlider">
+                                Assumed Freight Rate
+                            </label>
+
+                            <div class="range-row">
+
+                                <input
+                                    type="range"
+                                    id="freightSlider"
+                                    min="10"
+                                    max="60"
+                                    step="1"
+                                    value="25"
+                                >
+
+                                <div class="range-value">
+                                    $<span id="freightValue">25</span>/MT
+                                </div>
+
+                            </div>
+
+                            <div class="helper">
+                                Prototype assumption for scenario comparison.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Risk -->
+
+                        <div class="form-group">
+
+                            <label for="risk">
+                                Risk Level
+                            </label>
+
+                            <select id="risk">
+
+                                <option value="Low">
+                                    Low
+                                </option>
+
+                                <option value="Medium" selected>
+                                    Medium
+                                </option>
+
+                                <option value="High">
+                                    High
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Congestion -->
+
+                        <div class="form-group">
+
+                            <label for="congestion">
+                                Port Congestion
+                            </label>
+
+                            <select id="congestion">
+
+                                <option value="Low">
+                                    Low
+                                </option>
+
+                                <option value="Medium" selected>
+                                    Medium
+                                </option>
+
+                                <option value="High">
+                                    High
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Contract -->
+
+                        <div class="form-group">
+
+                            <label for="contract">
+                                Contract Strategy
+                            </label>
+
+                            <select id="contract">
+
+                                <option value="Spot">
+                                    Spot
+                                </option>
+
+                                <option value="Short-term" selected>
+                                    Short-term
+                                </option>
+
+                                <option value="Medium-term">
+                                    Medium-term
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="button-row">
+
+                        <a href="result.html" class="btn btn-secondary">
+                            Back
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Simulate What-if
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- =========================
+                 RESULT
+            ========================= -->
+
+            <section id="simulationResult">
+
+                <div class="result-header">
+
+                    <h3>
+                        Scenario Comparison
+                    </h3>
+
+                    <p>
+                        Simulated scenario compared with the original recommendation.
+                    </p>
+
+                </div>
+
+                <div class="result-body">
+
+                    <div class="comparison-grid">
+
+                        <div class="metric-card">
+
+                            <div class="label">
+                                Vessel Utilization
+                            </div>
+
+                            <div
+                                class="value"
+                                id="utilizationResult"
+                            >
+                                —
+                            </div>
+
+                            <div
+                                class="small"
+                                id="utilizationChange"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="metric-card">
+
+                            <div class="label">
+                                Freight Cost / MT
+                            </div>
+
+                            <div
+                                class="value"
+                                id="unitCostResult"
+                            >
+                                —
+                            </div>
+
+                            <div
+                                class="small"
+                                id="unitCostChange"
+                            >
+                                —
+                            </div>
+
+                        </div>
+
+
+                        <div class="metric-card">
+
+                            <div class="label">
+                                Economic Impact
+                            </div>
+
+                            <div
+                                class="value"
+                                id="economicImpact"
+                            >
+                                —
+                            </div>
+
+                            <div
+                                class="small"
+                                id="economicImpactText"
+                            >
+                                Prototype estimate
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Comparison table -->
+
+                    <div class="section-title">
+                        Scenario Details
+                    </div>
+
+                    <table class="comparison-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Factor</th>
+                                <th>Original</th>
+                                <th>Simulated</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Cargo</td>
+                                <td id="tableBaseCargo">—</td>
+                                <td id="tableSimCargo">—</td>
+                            </tr>
+
+                            <tr>
+                                <td>Vessel</td>
+                                <td id="tableBaseVessel">—</td>
+                                <td id="tableSimVessel">—</td>
+                            </tr>
+
+                            <tr>
+                                <td>Destination</td>
+                                <td id="tableBaseDestination">—</td>
+                                <td id="tableSimDestination">—</td>
+                            </tr>
+
+                            <tr>
+                                <td>Arrival</td>
+                                <td id="tableBaseArrival">—</td>
+                                <td id="tableSimArrival">—</td>
+                            </tr>
+
+                            <tr>
+                                <td>Risk</td>
+                                <td id="tableBaseRisk">—</td>
+                                <td id="tableSimRisk">—</td>
+                            </tr>
+
+                            <tr>
+                                <td>Port Congestion</td>
+                                <td id="tableBaseCongestion">—</td>
+                                <td id="tableSimCongestion">—</td>
+                            </tr>
+
+                            <tr>
+                                <td>Contract</td>
+                                <td id="tableBaseContract">—</td>
+                                <td id="tableSimContract">—</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+                    <!-- Verdict -->
+
+                    <div class="verdict">
+
+                        <h4 id="verdictTitle">
+                            Scenario Assessment
+                        </h4>
+
+                        <p id="verdictText">
+                            —
+                        </p>
+
+                        <div class="impact-box">
+
+                            <strong>
+                                Decision Support:
+                            </strong>
+
+                            <span id="decisionText">
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="disclaimer">
+
+                        Prototype simulation using representative planning factors.
+                        Economic impact is an indicative decision-support estimate,
+                        not a live profit forecast, booking quote, or guaranteed saving.
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* -------------------------
+           Vessel capacities
+        ------------------------- */
+
+        const vesselCapacities = {
+            Handysize: 40000,
+            Supramax: 60000,
+            Panamax: 82500,
+            Capesize: 150000
+        };
+
+
+        /* -------------------------
+           Load baseline
+        ------------------------- */
+
+        const storedInput =
+            JSON.parse(localStorage.getItem("saylivInput") || "null");
+
+        const storedResult =
+            JSON.parse(localStorage.getItem("saylivResult") || "null");
+
+
+        const baseline = {
+
+            cargo:
+                Number(
+                    storedInput?.cargo ??
+                    storedResult?.cargo ??
+                    50000
+                ),
+
+            vessel:
+                storedResult?.recommended_vessel ||
+                storedInput?.vessel ||
+                "Panamax",
+
+            destination:
+                storedInput?.destination ||
+                storedResult?.destination ||
+                "Paradip",
+
+            arrival:
+                storedInput?.arrivalDate ||
+                storedResult?.arrival_date ||
+                "2026-10-15",
+
+            freight:
+                Number(
+                    storedResult?.forecast_rate ??
+                    storedResult?.freight_rate ??
+                    25
+                ),
+
+            risk:
+                storedResult?.risk ||
+                "Medium",
+
+            idle:
+                Number(
+                    storedResult?.expected_idle ??
+                    0
+                ),
+
+            score:
+                Number(
+                    storedResult?.recommendation_score ??
+                    0
+                ),
+
+            contract:
+                storedInput?.contract ||
+                storedResult?.contract ||
+                "Short-term",
+
+            congestion:
+                storedResult?.congestion ||
+                "Medium"
+        };
+
+
+        /* -------------------------
+           Populate baseline
+        ------------------------- */
+
+        document.getElementById("baseCargo").textContent =
+            baseline.cargo.toLocaleString() + " MT";
+
+        document.getElementById("baseVessel").textContent =
+            baseline.vessel;
+
+        document.getElementById("baseDestination").textContent =
+            baseline.destination;
+
+        document.getElementById("baseArrival").textContent =
+            baseline.arrival;
+
+        document.getElementById("baseFreight").textContent =
+            "$" + baseline.freight.toFixed(2) + "/MT";
+
+        document.getElementById("baseRisk").textContent =
+            baseline.risk;
+
+        document.getElementById("baseIdle").textContent =
+            baseline.idle + " hrs";
+
+        document.getElementById("baseScore").textContent =
+            baseline.score
+                ? baseline.score + "/100"
+                : "Prototype";
+
+
+        /* -------------------------
+           Form elements
+        ------------------------- */
+
+        const cargoSlider =
+            document.getElementById("cargoSlider");
+
+        const cargoValue =
+            document.getElementById("cargoValue");
+
+        const freightSlider =
+            document.getElementById("freightSlider");
+
+        const freightValue =
+            document.getElementById("freightValue");
+
+        const vesselSelect =
+            document.getElementById("vessel");
+
+        const capacityValue =
+            document.getElementById("capacityValue");
+
+
+        /* -------------------------
+           Set initial values
+        ------------------------- */
+
+        cargoSlider.value = baseline.cargo;
+
+        cargoValue.textContent =
+            Number(cargoSlider.value).toLocaleString();
+
+        freightSlider.value =
+            Math.max(
+                10,
+                Math.min(
+                    60,
+                    Math.round(baseline.freight || 25)
+                )
+            );
+
+        freightValue.textContent =
+            freightSlider.value;
+
+
+        if (
+            vesselCapacities[baseline.vessel]
+        ) {
+            vesselSelect.value =
+                baseline.vessel;
+        }
+
+
+        /* -------------------------
+           Cargo slider
+        ------------------------- */
+
+        cargoSlider.addEventListener(
+            "input",
+            function () {
+
+                cargoValue.textContent =
+                    Number(this.value).toLocaleString();
+
+            }
+        );
+
+
+        /* -------------------------
+           Freight slider
+        ------------------------- */
+
+        freightSlider.addEventListener(
+            "input",
+            function () {
+
+                freightValue.textContent =
+                    this.value;
+
+            }
+        );
+
+
+        /* -------------------------
+           Vessel capacity
+        ------------------------- */
+
+        function updateCapacity() {
+
+            const vessel =
+                vesselSelect.value;
+
+            const capacity =
+                vesselCapacities[vessel];
+
+            capacityValue.textContent =
+                capacity.toLocaleString() + " MT";
+        }
+
+
+        vesselSelect.addEventListener(
+            "change",
+            updateCapacity
+        );
+
+        updateCapacity();
+
+
+        /* -------------------------
+           Risk penalty
+        ------------------------- */
+
+        function riskPercentage(risk) {
+
+            if (risk === "High") {
+                return 0.08;
+            }
+
+            if (risk === "Medium") {
+                return 0.04;
+            }
+
+            return 0.01;
+        }
+
+
+        /* -------------------------
+           Congestion penalty
+        ------------------------- */
+
+        function congestionPercentage(level) {
+
+            if (level === "High") {
+                return 0.05;
+            }
+
+            if (level === "Medium") {
+                return 0.025;
+            }
+
+            return 0.01;
+        }
+
+
+        /* -------------------------
+           Form submit
+        ------------------------- */
+
+        document
+            .getElementById("whatIfForm")
+            .addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const newCargo =
+                        Number(cargoSlider.value);
+
+                    const newVessel =
+                        vesselSelect.value;
+
+                    const newDestination =
+                        document.getElementById(
+                            "destination"
+                        ).value;
+
+                    const newArrival =
+                        document.getElementById(
+                            "arrivalDate"
+                        ).value;
+
+                    const newFreight =
+                        Number(
+                            freightSlider.value
+                        );
+
+                    const newRisk =
+                        document.getElementById(
+                            "risk"
+                        ).value;
+
+                    const newCongestion =
+                        document.getElementById(
+                            "congestion"
+                        ).value;
+
+                    const newContract =
+                        document.getElementById(
+                            "contract"
+                        ).value;
+
+
+                    const capacity =
+                        vesselCapacities[newVessel];
+
+
+                    /* -------------------------
+                       Utilization
+                    ------------------------- */
+
+                    const utilization =
+                        (newCargo / capacity) * 100;
+
+                    const roundedUtilization =
+                        Math.round(utilization);
+
+
+                    const baselineCapacity =
+                        vesselCapacities[
+                            baseline.vessel
+                        ] || 82500;
+
+
+                    const baselineUtilization =
+                        (
+                            baseline.cargo /
+                            baselineCapacity
+                        ) * 100;
+
+
+                    const utilizationDifference =
+                        roundedUtilization -
+                        Math.round(
+                            baselineUtilization
+                        );
+
+
+                    /* -------------------------
+                       Feasibility
+                    ------------------------- */
+
+                    let feasible = true;
+
+                    if (newCargo > capacity) {
+                        feasible = false;
+                    }
+
+
+                    /* -------------------------
+                       Cost model
+                    ------------------------- */
+
+                    const baselineFreightCost =
+                        baseline.cargo *
+                        baseline.freight;
+
+                    const simulatedFreightCost =
+                        newCargo *
+                        newFreight;
+
+
+                    const baselineRiskPenalty =
+                        baselineFreightCost *
+                        riskPercentage(
+                            baseline.risk
+                        );
+
+
+                    const simulatedRiskPenalty =
+                        simulatedFreightCost *
+                        riskPercentage(
+                            newRisk
+                        );
+
+
+                    const baselineCongestionPenalty =
+                        baselineFreightCost *
+                        congestionPercentage(
+                            baseline.congestion
+                        );
+
+
+                    const simulatedCongestionPenalty =
+                        simulatedFreightCost *
+                        congestionPercentage(
+                            newCongestion
+                        );
+
+
+                    const baselineIdlePenalty =
+                        baselineFreightCost *
+                        (baseline.idle * 0.0005);
+
+
+                    const simulatedIdleHours =
+                        newRisk === "High"
+                            ? 48
+                            : newRisk === "Medium"
+                                ? 24
+                                : 12;
+
+
+                    const simulatedIdlePenalty =
+                        simulatedFreightCost *
+                        (simulatedIdleHours * 0.0005);
+
+
+                    const baselineTotalCost =
+                        baselineFreightCost +
+                        baselineRiskPenalty +
+                        baselineCongestionPenalty +
+                        baselineIdlePenalty;
+
+
+                    const simulatedTotalCost =
+                        simulatedFreightCost +
+                        simulatedRiskPenalty +
+                        simulatedCongestionPenalty +
+                        simulatedIdlePenalty;
+
+
+                    /* -------------------------
+                       Unit economics
+                    ------------------------- */
+
+                    const baselineUnitCost =
+                        baseline.cargo > 0
+                            ? baselineTotalCost /
+                              baseline.cargo
+                            : baseline.freight;
+
+
+                    const simulatedUnitCost =
+                        newCargo > 0
+                            ? simulatedTotalCost /
+                              newCargo
+                            : newFreight;
+
+
+                    const unitCostDifference =
+                        baselineUnitCost -
+                        simulatedUnitCost;
+
+
+                    const percentageDifference =
+                        baselineUnitCost > 0
+                            ? (
+                                unitCostDifference /
+                                baselineUnitCost
+                              ) * 100
+                            : 0;
+
+
+                    /* -------------------------
+                       Potential economic impact
+                    ------------------------- */
+
+                    const potentialImpact =
+                        unitCostDifference *
+                        newCargo;
+
+
+                    /* -------------------------
+                       Scenario score
+                    ------------------------- */
+
+                    let scenarioScore =
+                        baseline.score || 60;
+
+
+                    if (
+                        utilization >= 60 &&
+                        utilization <= 90
+                    ) {
+                        scenarioScore += 6;
+                    }
+
+                    if (
+                        utilization > 90 &&
+                        utilization <= 100
+                    ) {
+                        scenarioScore += 2;
+                    }
+
+                    if (utilization < 50) {
+                        scenarioScore -= 7;
+                    }
+
+                    if (newRisk === "Medium") {
+                        scenarioScore -= 3;
+                    }
+
+                    if (newRisk === "High") {
+                        scenarioScore -= 8;
+                    }
+
+                    if (newCongestion === "Medium") {
+                        scenarioScore -= 2;
+                    }
+
+                    if (newCongestion === "High") {
+                        scenarioScore -= 6;
+                    }
+
+                    if (newContract === "Medium-term") {
+                        scenarioScore += 2;
+                    }
+
+                    if (
+                        newDestination !==
+                        baseline.destination
+                    ) {
+                        scenarioScore -= 2;
+                    }
+
+                    scenarioScore =
+                        Math.max(
+                            0,
+                            Math.min(
+                                100,
+                                Math.round(
+                                    scenarioScore
+                                )
+                            )
+                        );
+
+
+                    /* -------------------------
+                       Update metrics
+                    ------------------------- */
+
+                    const utilizationElement =
+                        document.getElementById(
+                            "utilizationResult"
+                        );
+
+                    utilizationElement.textContent =
+                        roundedUtilization + "%";
+
+
+                    const utilizationChangeElement =
+                        document.getElementById(
+                            "utilizationChange"
+                        );
+
+                    utilizationChangeElement.textContent =
+                        (
+                            utilizationDifference >= 0
+                                ? "+" : ""
+                        ) +
+                        utilizationDifference +
+                        " percentage points vs baseline";
+
+
+                    utilizationChangeElement.className =
+                        "small " +
+                        (
+                            utilizationDifference > 0
+                                ? "positive"
+                                : utilizationDifference < 0
+                                    ? "negative"
+                                    : "neutral"
+                        );
+
+
+                    const unitCostElement =
+                        document.getElementById(
+                            "unitCostResult"
+                        );
+
+                    unitCostElement.textContent =
+                        "$" +
+                        simulatedUnitCost.toFixed(2);
+
+
+                    const unitCostChangeElement =
+                        document.getElementById(
+                            "unitCostChange"
+                        );
+
+
+                    unitCostChangeElement.textContent =
+                        (
+                            percentageDifference >= 0
+                                ? "+" : ""
+                        ) +
+                        percentageDifference.toFixed(1) +
+                        "% unit-cost change";
+
+
+                    unitCostChangeElement.className =
+                        "small " +
+                        (
+                            percentageDifference > 1
+                                ? "positive"
+                                : percentageDifference < -1
+                                    ? "negative"
+                                    : "neutral"
+                        );
+
+
+                    const economicImpactElement =
+                        document.getElementById(
+                            "economicImpact"
+                        );
+
+
+                    if (potentialImpact > 0) {
+
+                        economicImpactElement.textContent =
+                            "Potential saving $" +
+                            Math.round(
+                                potentialImpact
+                            ).toLocaleString();
+
+                        economicImpactElement.className =
+                            "value positive";
+
+                    } else if (potentialImpact < 0) {
+
+                        economicImpactElement.textContent =
+                            "Potential additional cost $" +
+                            Math.abs(
+                                Math.round(
+                                    potentialImpact
+                                )
+                            ).toLocaleString();
+
+                        economicImpactElement.className =
+                            "value negative";
+
+                    } else {
+
+                        economicImpactElement.textContent =
+                            "Near baseline";
+
+                        economicImpactElement.className =
+                            "value neutral";
+                    }
+
+
+                    document.getElementById(
+                        "economicImpactText"
+                    ).textContent =
+                        "Prototype economic impact index";
+
+
+                    /* -------------------------
+                       Table
+                    ------------------------- */
+
+                    document.getElementById(
+                        "tableBaseCargo"
+                    ).textContent =
+                        baseline.cargo.toLocaleString() +
+                        " MT";
+
+                    document.getElementById(
+                        "tableSimCargo"
+                    ).textContent =
+                        newCargo.toLocaleString() +
+                        " MT";
+
+
+                    document.getElementById(
+                        "tableBaseVessel"
+                    ).textContent =
+                        baseline.vessel;
+
+                    document.getElementById(
+                        "tableSimVessel"
+                    ).textContent =
+                        newVessel;
+
+
+                    document.getElementById(
+                        "tableBaseDestination"
+                    ).textContent =
+                        baseline.destination;
+
+                    document.getElementById(
+                        "tableSimDestination"
+                    ).textContent =
+                        newDestination;
+
+
+                    document.getElementById(
+                        "tableBaseArrival"
+                    ).textContent =
+                        baseline.arrival;
+
+                    document.getElementById(
+                        "tableSimArrival"
+                    ).textContent =
+                        newArrival;
+
+
+                    document.getElementById(
+                        "tableBaseRisk"
+                    ).textContent =
+                        baseline.risk;
+
+                    document.getElementById(
+                        "tableSimRisk"
+                    ).textContent =
+                        newRisk;
+
+
+                    document.getElementById(
+                        "tableBaseCongestion"
+                    ).textContent =
+                        baseline.congestion;
+
+                    document.getElementById(
+                        "tableSimCongestion"
+                    ).textContent =
+                        newCongestion;
+
+
+                    document.getElementById(
+                        "tableBaseContract"
+                    ).textContent =
+                        baseline.contract;
+
+                    document.getElementById(
+                        "tableSimContract"
+                    ).textContent =
+                        newContract;
+
+
+                    /* -------------------------
+                       Verdict
+                    ------------------------- */
+
+                    const verdictTitle =
+                        document.getElementById(
+                            "verdictTitle"
+                        );
+
+                    const verdictText =
+                        document.getElementById(
+                            "verdictText"
+                        );
+
+                    const decisionText =
+                        document.getElementById(
+                            "decisionText"
+                        );
+
+
+                    if (!feasible) {
+
+                        verdictTitle.textContent =
+                            "Scenario Not Feasible";
+
+                        verdictText.textContent =
+                            "The simulated cargo exceeds the capacity of the selected " +
+                            newVessel +
+                            " vessel. Increasing cargo under this configuration " +
+                            "could create an operational constraint.";
+
+                        decisionText.textContent =
+                            "Choose a larger vessel or reduce the simulated cargo before proceeding.";
+
+                    } else if (
+                        percentageDifference >= 3 &&
+                        newRisk !== "High" &&
+                        utilization >= 60
+                    ) {
+
+                        verdictTitle.textContent =
+                            "Potentially Beneficial Scenario";
+
+                        verdictText.textContent =
+                            "The simulated scenario shows improved prototype unit economics " +
+                            "with acceptable vessel utilization and without a high-risk setting.";
+
+                        decisionText.textContent =
+                            "This scenario can be considered for further operational and market validation.";
+
+                    } else if (
+                        percentageDifference <= -3 ||
+                        newRisk === "High" ||
+                        utilization < 50
+                    ) {
+
+                        verdictTitle.textContent =
+                            "Potentially Unfavorable Scenario";
+
+                        verdictText.textContent =
+                            "The simulated scenario introduces higher prototype cost pressure, " +
+                            "higher risk, or lower vessel utilization compared with the baseline.";
+
+                        decisionText.textContent =
+                            "The original recommendation should be retained unless additional operational data supports the change.";
+
+                    } else {
+
+                        verdictTitle.textContent =
+                            "Scenario Close to Baseline";
+
+                        verdictText.textContent =
+                            "The simulated scenario does not show a strong enough change " +
+                            "in prototype economics or operational factors to clearly justify switching.";
+
+                        decisionText.textContent =
+                            "Further review of freight rates, port conditions and vessel availability is recommended.";
+
+                    }
+
+
+                    /* -------------------------
+                       Show result
+                    ------------------------- */
+
+                    const resultSection =
+                        document.getElementById(
+                            "simulationResult"
+                        );
+
+                    resultSection.style.display =
+                        "block";
+
+
+                    resultSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>

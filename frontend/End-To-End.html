@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SAYLIV | End-To-End Decision</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+            color: #172033;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: #0d2340;
+            color: white;
+            padding: 24px 15px;
+            overflow-y: auto;
+        }
+
+        .brand {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            padding-left: 12px;
+        }
+
+        .brand-sub {
+            font-size: 11px;
+            color: #aebed0;
+            padding-left: 13px;
+            margin-bottom: 30px;
+        }
+
+        .nav-title {
+            font-size: 10px;
+            color: #8ea3ba;
+            letter-spacing: 1.5px;
+            margin: 20px 12px 8px;
+        }
+
+        .nav-item {
+            display: block;
+            width: 100%;
+            padding: 11px 12px;
+            margin: 4px 0;
+            border-radius: 6px;
+            color: #dce6f1;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #17395f;
+            color: white;
+        }
+
+        .nav-item span {
+            display: inline-block;
+            width: 25px;
+            color: #f28c28;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 245px;
+            padding: 32px 38px 60px;
+        }
+
+        .top-label {
+            color: #f28c28;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #0d2340;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            margin-top: 8px;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 850px;
+        }
+
+        /* HERO */
+
+        .hero {
+            background: white;
+            border: 1px solid #dce4ed;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .route {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .route-box {
+            background: #f5f8fb;
+            border: 1px solid #dbe4ed;
+            border-radius: 7px;
+            padding: 13px 18px;
+        }
+
+        .route-box small {
+            display: block;
+            color: #718096;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .route-box strong {
+            color: #0d2340;
+            font-size: 14px;
+        }
+
+        .arrow {
+            color: #f28c28;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* RECOMMENDATION */
+
+        .recommendation-banner {
+            margin-top: 20px;
+            background: #fff7ed;
+            border: 1px solid #f6c48e;
+            border-left: 5px solid #f28c28;
+            border-radius: 8px;
+            padding: 18px 20px;
+        }
+
+        .recommendation-banner .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #a85d14;
+            font-weight: 800;
+        }
+
+        .recommendation-banner h2 {
+            margin: 5px 0;
+            color: #0d2340;
+            font-size: 24px;
+        }
+
+        .recommendation-banner p {
+            margin: 0;
+            color: #596779;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        /* SNAPSHOT */
+
+        .section-title {
+            margin: 32px 0 14px;
+            color: #0d2340;
+            font-size: 19px;
+        }
+
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .metric {
+            background: white;
+            border: 1px solid #dce4ed;
+            border-radius: 9px;
+            padding: 18px;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            color: #0d2340;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        .metric-note {
+            margin-top: 5px;
+            color: #8793a2;
+            font-size: 11px;
+        }
+
+        /* EXPLANATION */
+
+        .explanation {
+            background: white;
+            border: 1px solid #dce4ed;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 22px;
+        }
+
+        .explanation h3 {
+            margin: 0 0 10px;
+            color: #0d2340;
+            font-size: 18px;
+        }
+
+        .explanation p {
+            color: #596779;
+            line-height: 1.7;
+            font-size: 13px;
+            margin: 7px 0;
+        }
+
+        .factor-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .factor {
+            border: 1px solid #e0e7ef;
+            border-radius: 8px;
+            padding: 15px;
+            background: #fafbfd;
+        }
+
+        .factor-title {
+            font-weight: 800;
+            color: #0d2340;
+            font-size: 13px;
+        }
+
+        .factor-text {
+            margin-top: 6px;
+            color: #667487;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        /* CHARTS */
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .chart-card {
+            background: white;
+            border: 1px solid #dce4ed;
+            border-radius: 10px;
+            padding: 22px;
+            min-height: 360px;
+        }
+
+        .chart-card h3 {
+            margin: 0;
+            color: #0d2340;
+            font-size: 16px;
+        }
+
+        .chart-card p {
+            color: #718096;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 7px 0 18px;
+        }
+
+        .chart-container {
+            height: 260px;
+            position: relative;
+        }
+
+        /* DECISION FLOW */
+
+        .decision-flow {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .flow-step {
+            text-align: center;
+            padding: 17px 10px;
+            border: 1px solid #dce4ed;
+            background: #fff;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .flow-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -16px;
+            top: 28px;
+            color: #f28c28;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .flow-number {
+            width: 27px;
+            height: 27px;
+            border-radius: 50%;
+            margin: auto;
+            background: #f28c28;
+            color: white;
+            line-height: 27px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .flow-title {
+            margin-top: 9px;
+            color: #0d2340;
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .flow-text {
+            margin-top: 5px;
+            color: #748094;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        /* FINAL */
+
+        .final-box {
+            margin-top: 25px;
+            padding: 23px;
+            border-radius: 10px;
+            background: #0d2340;
+            color: white;
+        }
+
+        .final-box h2 {
+            margin: 0 0 10px;
+            font-size: 21px;
+        }
+
+        .final-box p {
+            color: #d5dfeb;
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 5px 0;
+        }
+
+        .prototype-note {
+            margin-top: 20px;
+            padding: 13px 15px;
+            border: 1px solid #d9e1ea;
+            background: #f8fafc;
+            color: #697789;
+            border-radius: 7px;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 11px 18px;
+            border-radius: 6px;
+            background: #f28c28;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .back-button:hover {
+            background: #d97516;
+        }
+
+        @media(max-width: 1000px) {
+            .snapshot-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .decision-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        @media(max-width: 750px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 22px;
+            }
+
+            .factor-list,
+            .snapshot-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">SAYLIV</div>
+    <div class="brand-sub">Predictive Maritime Intelligence</div>
+
+    <div class="nav-title">MAIN</div>
+
+    <a href="index.html" class="nav-item">
+        <span>⌂</span> Dashboard
+    </a>
+
+    <a href="analysis.html" class="nav-item">
+        <span>＋</span> New Analysis
+    </a>
+
+    <div class="nav-title">ANALYSIS</div>
+
+    <a href="result.html" class="nav-item">
+        <span>◈</span> Analysis Result
+    </a>
+
+    <a href="review.html" class="nav-item">
+        <span>▣</span> Review Analysis
+    </a>
+
+    <a href="freight-pooling.html" class="nav-item">
+        <span>⇄</span> Freight Pooling
+    </a>
+
+    <a href="ocean.html" class="nav-item">
+        <span>⌁</span> Ocean Scanner
+    </a>
+
+    <a href="cargo-booking.html" class="nav-item">
+        <span>🚢</span> Cargo Booking
+    </a>
+
+    <div class="nav-title">INTELLIGENCE</div>
+
+    <a href="whatif.html" class="nav-item">
+        <span>◇</span> What-if Simulator
+    </a>
+
+    <a href="end-to-end.html" class="nav-item active">
+        <span>⇢</span> End-To-End
+    </a>
+
+</aside>
+
+
+<main class="main">
+
+    <div class="top-label">Decision Intelligence</div>
+
+    <h1>End-To-End Optimization</h1>
+
+    <div class="subtitle">
+        Understand exactly why SAYLIV recommended Rail or Road for your selected cargo movement.
+        The recommendation is explained using the details entered during New Analysis.
+    </div>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="route" id="routeDetails">
+            Loading scenario...
+        </div>
+
+        <div class="recommendation-banner">
+
+            <div class="label">SAYLIV End-To-End Recommendation</div>
+
+            <h2 id="recommendedMode">
+                Loading...
+            </h2>
+
+            <p id="recommendationSummary">
+                Calculating the recommendation...
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- SNAPSHOT -->
+
+    <h2 class="section-title">Decision Snapshot</h2>
+
+    <div class="snapshot-grid">
+
+        <div class="metric">
+            <div class="metric-label">Cargo</div>
+            <div class="metric-value" id="cargoValue">—</div>
+            <div class="metric-note">Selected shipment quantity</div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Origin</div>
+            <div class="metric-value" id="originValue">—</div>
+            <div class="metric-note">Selected origin country</div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Destination</div>
+            <div class="metric-value" id="destinationValue">—</div>
+            <div class="metric-note">Selected destination</div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Recommended Mode</div>
+            <div class="metric-value" id="modeValue">—</div>
+            <div class="metric-note">End-to-end transport</div>
+        </div>
+
+    </div>
+
+
+    <!-- WHY -->
+
+    <section class="explanation">
+
+        <h3>Why did SAYLIV recommend this mode?</h3>
+
+        <p id="mainExplanation">
+            Loading decision explanation...
+        </p>
+
+        <div class="factor-list">
+
+            <div class="factor">
+                <div class="factor-title">
+                    01 · Cargo Quantity
+                </div>
+                <div class="factor-text" id="cargoReason">
+                    —
+                </div>
+            </div>
+
+            <div class="factor">
+                <div class="factor-title">
+                    02 · Planning Index
+                </div>
+                <div class="factor-text" id="indexReason">
+                    —
+                </div>
+            </div>
+
+            <div class="factor">
+                <div class="factor-title">
+                    03 · Route Context
+                </div>
+                <div class="factor-text" id="routeReason">
+                    —
+                </div>
+            </div>
+
+            <div class="factor">
+                <div class="factor-title">
+                    04 · Decision Logic
+                </div>
+                <div class="factor-text" id="logicReason">
+                    —
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHARTS -->
+
+    <h2 class="section-title">
+        Rail vs Road — Visual Comparison
+    </h2>
+
+    <div class="charts-grid">
+
+        <div class="chart-card">
+
+            <h3>Planning Index Comparison</h3>
+
+            <p>
+                Lower planning index indicates the more efficient option
+                under the prototype's current planning model.
+            </p>
+
+            <div class="chart-container">
+                <canvas id="indexChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>Relative Planning Share</h3>
+
+            <p>
+                This visual shows the relative contribution of the Rail
+                and Road planning indices.
+            </p>
+
+            <div class="chart-container">
+                <canvas id="pieChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DECISION FLOW -->
+
+    <h2 class="section-title">
+        How the Recommendation Was Reached
+    </h2>
+
+    <div class="decision-flow">
+
+        <div class="flow-step">
+            <div class="flow-number">1</div>
+            <div class="flow-title">Cargo</div>
+            <div class="flow-text">
+                Read cargo quantity and commodity.
+            </div>
+        </div>
+
+        <div class="flow-step">
+            <div class="flow-number">2</div>
+            <div class="flow-title">Route</div>
+            <div class="flow-text">
+                Read origin and destination.
+            </div>
+        </div>
+
+        <div class="flow-step">
+            <div class="flow-number">3</div>
+            <div class="flow-title">Compare</div>
+            <div class="flow-text">
+                Rail and Road planning indices are compared.
+            </div>
+        </div>
+
+        <div class="flow-step">
+            <div class="flow-number">4</div>
+            <div class="flow-title">Evaluate</div>
+            <div class="flow-text">
+                Lower index becomes the preferred prototype mode.
+            </div>
+        </div>
+
+        <div class="flow-step">
+            <div class="flow-number">5</div>
+            <div class="flow-title">Recommend</div>
+            <div class="flow-text">
+                SAYLIV presents the selected mode.
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- FINAL -->
+
+    <div class="final-box">
+
+        <h2 id="finalTitle">
+            End-To-End Recommendation
+        </h2>
+
+        <p id="finalExplanation">
+            —
+        </p>
+
+        <p>
+            This recommendation is based on the current prototype
+            intermodal planning model and the information entered by the user.
+        </p>
+
+    </div>
+
+
+    <div class="prototype-note">
+        <strong>Prototype note:</strong>
+        Rail and Road values shown here are planning indices generated by
+        SAYLIV's current prototype logic. They are not live transport quotes,
+        guaranteed savings, or a production logistics cost model.
+        A production system should incorporate validated route distance,
+        actual freight/transport rates, availability, infrastructure,
+        transit time and operational constraints.
+    </div>
+
+
+    <a href="result.html" class="back-button">
+        ← Back to Analysis Result
+    </a>
+
+</main>
+
+
+<script src="end-to-end.js"></script>
+
+</body>
+</html>

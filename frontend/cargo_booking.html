@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SAYLIV | Cargo Booking</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+            color: #172033;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+
+            background: #0d2340;
+            color: white;
+
+            padding: 25px 17px;
+            overflow-y: auto;
+
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 0 10px 25px;
+        }
+
+        .logo span {
+            color: #f28c28;
+        }
+
+        .nav-title {
+            color: #8ea1b8;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 10px 8px;
+        }
+
+        .nav-item {
+            display: block;
+            color: #cbd6e3;
+            text-decoration: none;
+
+            padding: 10px 12px;
+            border-radius: 6px;
+
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        .nav-item:hover {
+            background: #18385d;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: #f28c28;
+            color: white;
+            font-weight: 700;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 235px;
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .eyebrow {
+            color: #f28c28;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #0d2340;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            margin: 8px 0 25px;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 750px;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background: #0d2340;
+            color: white;
+
+            border-radius: 10px;
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hero h2 {
+            margin: 0 0 8px;
+            font-size: 21px;
+        }
+
+        .hero p {
+            margin: 0;
+            color: #cbd6e3;
+            font-size: 12px;
+            line-height: 1.5;
+            max-width: 650px;
+        }
+
+        .hero-badge {
+            background: #f28c28;
+            color: white;
+
+            padding: 9px 13px;
+            border-radius: 6px;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        /* ================= LAYOUT ================= */
+
+        .booking-layout {
+            display: grid;
+            grid-template-columns: 390px minmax(0, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #dbe4ee;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(15, 35, 60, 0.06);
+        }
+
+        .panel-header {
+            padding: 19px 20px;
+            border-bottom: 1px solid #e4ebf2;
+        }
+
+        .panel-header h3 {
+            margin: 0;
+            color: #0d2340;
+            font-size: 17px;
+        }
+
+        .panel-header p {
+            margin: 6px 0 0;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-body {
+            padding: 20px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 11px;
+
+            border: 1px solid #ccd8e4;
+            border-radius: 6px;
+
+            background: white;
+            color: #172033;
+
+            font-size: 12px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #3285d8;
+        }
+
+        .cargo-row {
+            display: grid;
+            grid-template-columns: 1fr 105px;
+            gap: 8px;
+        }
+
+        .unit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f1f6fa;
+            border: 1px solid #dbe4ee;
+            border-radius: 6px;
+
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .find-button {
+            width: 100%;
+
+            margin-top: 7px;
+
+            padding: 13px;
+
+            border: none;
+            border-radius: 7px;
+
+            background: #f28c28;
+            color: white;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .find-button:hover {
+            background: #d97516;
+        }
+
+        /* ================= RESULT ================= */
+
+        .result-body {
+            padding: 20px;
+        }
+
+        .empty-state {
+            min-height: 360px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            color: #64748b;
+        }
+
+        .empty-icon {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            background: #fff4e7;
+            color: #f28c28;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 6px;
+            color: #0d2340;
+            font-size: 17px;
+        }
+
+        .empty-state p {
+            max-width: 430px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ================= MATCH ================= */
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e4ebf2;
+        }
+
+        .match-label {
+            color: #f28c28;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+        }
+
+        .match-title {
+            margin-top: 5px;
+            color: #0d2340;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .match-route {
+            margin-top: 5px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .available {
+            background: #eaf7ef;
+            color: #167443;
+
+            border: 1px solid #bfe6cc;
+
+            padding: 8px 10px;
+            border-radius: 6px;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 9px;
+
+            margin: 16px 0;
+        }
+
+        .match-stat {
+            background: #f6f9fc;
+            border: 1px solid #e0e8f0;
+            border-radius: 6px;
+            padding: 11px;
+        }
+
+        .match-stat small {
+            display: block;
+            color: #64748b;
+            font-size: 9px;
+        }
+
+        .match-stat strong {
+            display: block;
+            color: #0d2340;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .capacity-box {
+            margin-top: 15px;
+            padding: 14px;
+
+            background: #fbfdff;
+            border: 1px solid #dbe4ee;
+            border-radius: 7px;
+        }
+
+        .capacity-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        .capacity-bar {
+            height: 9px;
+            background: #e6edf4;
+            border-radius: 20px;
+
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .capacity-fill {
+            height: 100%;
+            background: #3285d8;
+            border-radius: 20px;
+            width: 0;
+            transition: width .4s ease;
+        }
+
+        .recommendation {
+            margin-top: 15px;
+
+            background: #fff8ef;
+            border: 1px solid #f4d5ad;
+            border-left: 4px solid #f28c28;
+
+            border-radius: 7px;
+
+            padding: 14px;
+        }
+
+        .recommendation strong {
+            display: block;
+            color: #0d2340;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .recommendation p {
+            margin: 0;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .book-button {
+            width: 100%;
+
+            margin-top: 16px;
+
+            padding: 13px;
+
+            background: #0d2340;
+            color: white;
+
+            border: none;
+            border-radius: 7px;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .book-button:hover {
+            background: #18385d;
+        }
+
+        /* ================= TRACKING ================= */
+
+        .tracking {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .tracking.visible {
+            display: block;
+        }
+
+        .tracking-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e4ebf2;
+        }
+
+        .tracking-header h3 {
+            margin: 0;
+            color: #0d2340;
+            font-size: 17px;
+        }
+
+        .tracking-header p {
+            margin: 5px 0 0;
+            color: #64748b;
+            font-size: 11px;
+        }
+
+        .tracking-body {
+            padding: 20px;
+        }
+
+        .booking-id {
+            display: inline-block;
+
+            background: #eef4fa;
+            color: #0d2340;
+
+            padding: 7px 10px;
+
+            border-radius: 5px;
+
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .tracking-line {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .tracking-step {
+            position: relative;
+
+            padding: 13px;
+
+            border-top: 3px solid #dbe4ee;
+        }
+
+        .tracking-step.done {
+            border-color: #3285d8;
+        }
+
+        .tracking-step.current {
+            border-color: #f28c28;
+        }
+
+        .tracking-step strong {
+            display: block;
+            color: #0d2340;
+            font-size: 12px;
+        }
+
+        .tracking-step span {
+            display: block;
+            margin-top: 5px;
+            color: #64748b;
+            font-size: 10px;
+        }
+
+        .note {
+            margin-top: 16px;
+
+            color: #64748b;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1050px) {
+
+            .booking-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .match-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .match-header {
+                flex-direction: column;
+            }
+
+            .tracking-line {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            SAY<span>LIV</span>
+        </div>
+
+        <div class="nav-title">
+            Core
+        </div>
+
+        <a href="index.html" class="nav-item">
+            Dashboard
+        </a>
+
+        <a href="analysis.html" class="nav-item">
+            New Analysis
+        </a>
+
+        <div class="nav-title">
+            Intelligence
+        </div>
+
+        <a href="result.html" class="nav-item">
+            Freight Forecast
+        </a>
+
+        <a href="ocean.html" class="nav-item">
+            Ocean Scanner
+        </a>
+
+        <div class="nav-title">
+            Execution
+        </div>
+
+        <a href="cargo-booking.html" class="nav-item active">
+            Cargo Booking
+        </a>
+
+        <a href="review.html" class="nav-item">
+            Review Analysis
+        </a>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <div class="eyebrow">
+            Chartering & Cargo Movement
+        </div>
+
+        <h1>
+            Find a Vessel for Your Cargo
+        </h1>
+
+        <p class="subtitle">
+            Tell SAYLIV what you need to move and where it needs
+            to go. The Ocean Scanner checks the available
+            representative vessel network and identifies a
+            suitable route.
+        </p>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div>
+
+                <h2>
+                    From Cargo Requirement → Vessel Match
+                </h2>
+
+                <p>
+                    SAYLIV does not expose the cargo being carried
+                    by another vessel. It only evaluates whether
+                    suitable capacity is available for your own
+                    shipment requirement.
+                </p>
+
+            </div>
+
+            <div class="hero-badge">
+                Ocean Scanner Connected
+            </div>
+
+        </section>
+
+
+        <!-- BOOKING + RESULT -->
+
+        <section class="booking-layout">
+
+
+            <!-- USER INPUT -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>
+                        Your Cargo Requirement
+                    </h3>
+
+                    <p>
+                        Enter the shipment details you want
+                        SAYLIV to evaluate.
+                    </p>
+
+                </div>
+
+
+                <div class="form-body">
+
+                    <div class="field">
+
+                        <label>
+                            What are you shipping?
+                        </label>
+
+                        <select id="cargoType">
+
+                            <option value="Coal">
+                                Coal
+                            </option>
+
+                            <option value="Iron Ore">
+                                Iron Ore
+                            </option>
+
+                            <option value="Coke">
+                                Coke
+                            </option>
+
+                            <option value="Limestone">
+                                Limestone
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Cargo Quantity
+                        </label>
+
+                        <div class="cargo-row">
+
+                            <input
+                                id="cargoQuantity"
+                                type="number"
+                                value="50000"
+                                min="5000"
+                                max="150000"
+                                step="1000"
+                            >
+
+                            <div class="unit">
+                                MT
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Loading Port
+                        </label>
+
+                        <select id="loadingPort">
+
+                            <option value="Newcastle">
+                                Newcastle
+                            </option>
+
+                            <option value="Hay Point">
+                                Hay Point
+                            </option>
+
+                            <option value="Gladstone">
+                                Gladstone
+                            </option>
+
+                            <option value="Abbot Point">
+                                Abbot Point
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Destination Port
+                        </label>
+
+                        <select id="destinationPort">
+
+                            <option value="Paradip">
+                                Paradip
+                            </option>
+
+                            <option value="Dhamra">
+                                Dhamra
+                            </option>
+
+                            <option value="Visakhapatnam">
+                                Visakhapatnam
+                            </option>
+
+                            <option value="Gangavaram">
+                                Gangavaram
+                            </option>
+
+                            <option value="Gopalpur">
+                                Gopalpur
+                            </option>
+
+                            <option value="Haldia">
+                                Haldia
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Required Arrival Date
+                        </label>
+
+                        <input
+                            id="arrivalDate"
+                            type="date"
+                            value="2026-10-15"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Preferred Vessel
+                        </label>
+
+                        <select id="preferredVessel">
+
+                            <option value="Any">
+                                Any suitable vessel
+                            </option>
+
+                            <option value="Handysize">
+                                Handysize
+                            </option>
+
+                            <option value="Supramax">
+                                Supramax
+                            </option>
+
+                            <option value="Panamax">
+                                Panamax
+                            </option>
+
+                            <option value="Capesize">
+                                Capesize
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        class="find-button"
+                        id="findVesselButton"
+                        type="button"
+                    >
+                        Find Suitable Vessel
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>
+                        Ocean Scanner Match
+                    </h3>
+
+                    <p>
+                        Vessel information is based on the
+                        representative Ocean Scanner network.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="result-body"
+                    id="resultBody"
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🚢
+                        </div>
+
+                        <h3>
+                            Ready to scan
+                        </h3>
+
+                        <p>
+                            Enter your cargo requirement and
+                            destination. SAYLIV will look for
+                            a suitable vessel route with
+                            available prototype capacity.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRACKING -->
+
+        <section
+            class="panel tracking"
+            id="trackingPanel"
+        >
+
+            <div class="tracking-header">
+
+                <h3>
+                    Cargo Tracking
+                </h3>
+
+                <p>
+                    Your shipment journey after booking.
+                </p>
+
+            </div>
+
+
+            <div class="tracking-body">
+
+                <span
+                    class="booking-id"
+                    id="bookingId"
+                >
+                    Booking ID: --
+                </span>
+
+
+                <div class="tracking-line">
+
+                    <div class="tracking-step done">
+
+                        <strong>
+                            Booking Requested
+                        </strong>
+
+                        <span>
+                            Cargo requirement registered
+                        </span>
+
+                    </div>
+
+
+                    <div class="tracking-step current">
+
+                        <strong>
+                            Vessel Identified
+                        </strong>
+
+                        <span id="trackingVessel">
+                            Suitable vessel selected
+                        </span>
+
+                    </div>
+
+
+                    <div class="tracking-step">
+
+                        <strong>
+                            Voyage Tracking
+                        </strong>
+
+                        <span>
+                            Tracking becomes active after execution
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="note">
+                    Prototype tracking flow. Live vessel positions,
+                    booking confirmation and voyage status require
+                    integration with authorized operational/AIS
+                    and booking systems.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src ="cargo-booking.js"> </script>
+
+
+</body>
+
+</html>

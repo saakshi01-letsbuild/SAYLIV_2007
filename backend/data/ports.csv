@@ -1,0 +1,4 @@
+port,max_loa_m,max_beam_m,max_draft_m,congestion_level
+Paradip,300,46,16,Medium
+Visakhapatnam,300,50,18.1,Medium
+Gangavaram,350,25,20.5,Medium

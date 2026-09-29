@@ -1,0 +1,3355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SAYLIV | Detailed Review</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #1d2d43;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #172a46;
+            color: white;
+            padding: 24px 16px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .brand {
+            padding: 0 12px 22px;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            margin-bottom: 20px;
+        }
+
+        .brand h1 {
+            font-size: 25px;
+            letter-spacing: 1px;
+        }
+
+        .brand p {
+            margin-top: 5px;
+            font-size: 11px;
+            color: #aebbd0;
+            line-height: 1.4;
+        }
+
+        .nav-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #91a1b8;
+            margin: 18px 12px 8px;
+        }
+
+        .nav-link {
+            display: block;
+            text-decoration: none;
+            color: #d8e0eb;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            background: #223b60;
+            color: white;
+        }
+
+        .nav-link.active {
+            background: #e9822b;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+            padding: 32px 38px 55px;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #5e6e83;
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .back-link:hover {
+            color: #e9822b;
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            font-size: 30px;
+            color: #172a46;
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            color: #68768a;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           TOP SCENARIO
+        ========================= */
+
+        .scenario {
+            background: #172a46;
+            color: white;
+            border-radius: 9px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .scenario-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aebbd0;
+            margin-bottom: 8px;
+        }
+
+        .scenario h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .scenario p {
+            color: #ccd5e1;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .scenario-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 17px;
+        }
+
+        .scenario-tag {
+            padding: 7px 10px;
+            background: #223b60;
+            border-radius: 5px;
+            font-size: 11px;
+            color: #dfe7f1;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .section {
+            background: white;
+            border: 1px solid #dfe4ea;
+            border-radius: 9px;
+            padding: 23px;
+            margin-bottom: 20px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .section-heading h3 {
+            color: #172a46;
+            font-size: 18px;
+        }
+
+        .section-heading p {
+            margin-top: 5px;
+            color: #718096;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .number {
+            min-width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #f1f3f6;
+            color: #e9822b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           FINAL RECOMMENDATION
+        ========================= */
+
+        .final-recommendation {
+            border: 1px solid #d9e1e8;
+            border-left: 5px solid #e9822b;
+            background: #fffaf5;
+            border-radius: 7px;
+            padding: 20px;
+        }
+
+        .final-recommendation h3 {
+            color: #172a46;
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .final-recommendation p {
+            color: #536276;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .recommendation-score {
+            display: inline-block;
+            margin-top: 13px;
+            padding: 8px 12px;
+            background: #f5e7da;
+            color: #a65b20;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           SUMMARY GRID
+        ========================= */
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .summary-card {
+            background: #fafbfc;
+            border: 1px solid #e1e6eb;
+            border-radius: 7px;
+            padding: 16px;
+        }
+
+        .summary-card span {
+            display: block;
+            font-size: 11px;
+            color: #748196;
+            margin-bottom: 7px;
+        }
+
+        .summary-card strong {
+            color: #1e314b;
+            font-size: 17px;
+        }
+
+        .summary-card small {
+            display: block;
+            color: #7c8797;
+            margin-top: 5px;
+            font-size: 10px;
+        }
+
+        /* =========================
+           CHART GRID
+        ========================= */
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .chart-card {
+            border: 1px solid #e1e6eb;
+            border-radius: 7px;
+            padding: 17px;
+            background: #fff;
+        }
+
+        .chart-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #293b54;
+            margin-bottom: 4px;
+        }
+
+        .chart-description {
+            color: #7a8697;
+            font-size: 11px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .chart-wrap {
+            position: relative;
+            height: 260px;
+        }
+
+        /* =========================
+           DECISION CARDS
+        ========================= */
+
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+
+        .decision-card {
+            border: 1px solid #e0e5ea;
+            border-radius: 7px;
+            padding: 17px;
+            background: #fafbfc;
+        }
+
+        .decision-card h4 {
+            color: #253851;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .decision-status {
+            display: inline-block;
+            padding: 5px 8px;
+            background: #edf2f6;
+            color: #5f6f83;
+            border-radius: 4px;
+            font-size: 10px;
+            margin-bottom: 9px;
+        }
+
+        .decision-card p {
+            color: #617085;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           REASON BOX
+        ========================= */
+
+        .reason-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .reason {
+            display: flex;
+            gap: 12px;
+            border: 1px solid #e2e7ec;
+            border-radius: 7px;
+            padding: 15px;
+            background: #fafbfc;
+        }
+
+        .reason-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: #f1f3f6;
+            color: #e9822b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .reason h4 {
+            font-size: 13px;
+            color: #283b55;
+            margin-bottom: 5px;
+        }
+
+        .reason p {
+            font-size: 11px;
+            color: #68778a;
+            line-height: 1.55;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #e6eaee;
+            font-size: 12px;
+        }
+
+        th {
+            background: #f7f8fa;
+            color: #69778a;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        td {
+            color: #35465d;
+        }
+
+        /* =========================
+           STATUS COLORS
+        ========================= */
+
+        .good {
+            color: #287c59 !important;
+        }
+
+        .warning {
+            color: #b26a24 !important;
+        }
+
+        .danger {
+            color: #b34e4e !important;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            background: #172a46;
+            border-radius: 9px;
+            padding: 22px;
+            color: white;
+        }
+
+        .cta h3 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .cta p {
+            color: #c6d0dc;
+            font-size: 12px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 9px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .btn-orange {
+            background: #e9822b;
+            color: white;
+        }
+
+        .btn-light {
+            background: #edf1f5;
+            color: #32445c;
+        }
+
+        /* =========================
+           DISCLAIMER
+        ========================= */
+
+        .disclaimer {
+            margin-top: 18px;
+            padding: 12px 14px;
+            border: 1px solid #e1e5e9;
+            border-radius: 5px;
+            background: #f8f9fa;
+            color: #788494;
+            font-size: 10px;
+            line-height: 1.55;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1050px) {
+
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-card.full {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 25px 16px 45px;
+            }
+
+            .decision-grid,
+            .reason-list {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cta-buttons {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 17px;
+            }
+
+            .scenario {
+                padding: 18px;
+            }
+
+            .page-header h2 {
+                font-size: 25px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <h1>SAYLIV</h1>
+            <p>Freight Intelligence & Decision Support</p>
+        </div>
+
+        <div class="nav-title">Main</div>
+
+        <a href="index.html" class="nav-link">
+            Dashboard
+        </a>
+
+        <a href="analysis.html" class="nav-link">
+            New Analysis
+        </a>
+
+        <a href="result.html" class="nav-link">
+            Analysis Result
+        </a>
+
+        <a href="review.html" class="nav-link active">
+            Detailed Review
+        </a>
+
+        <div class="nav-title">Decision Tools</div>
+
+        <a href="result.html" class="nav-link">
+            Freight Forecast
+        </a>
+
+        <a href="result.html" class="nav-link">
+            Vessel Match
+        </a>
+
+        <a href="result.html" class="nav-link">
+            Port Compatibility
+        </a>
+
+        <a href="result.html" class="nav-link">
+            Risk & Idle
+        </a>
+
+        <a href="#" class="nav-link">
+            Freight Pooling
+        </a>
+
+        <a href="#" class="nav-link">
+            Carbon Planning
+        </a>
+
+        <a href="#" class="nav-link">
+            End-To-End
+        </a>
+
+        <a href="whatif.html" class="nav-link">
+            What-if Simulator
+        </a>
+
+        <a href="#" class="nav-link">
+            Ocean Scanner
+        </a>
+
+
+
+        <a href="#" class="nav-link">
+            Weather
+        </a>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main">
+
+        <div class="content">
+
+            <div class="page-header">
+
+                <a href="result.html" class="back-link">
+                    ← Back to Analysis Result
+                </a>
+
+                <h2>Detailed Decision Review</h2>
+
+                <p>
+                    A complete explanation of how SAYLIV evaluated the shipment
+                    and arrived at the final recommendation.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 SCENARIO
+            ========================= -->
+
+            <section class="scenario">
+
+                <div class="scenario-label">
+                    Analyzed Scenario
+                </div>
+
+                <h3 id="scenarioTitle">
+                    Freight Procurement Analysis
+                </h3>
+
+                <p id="scenarioDescription">
+                    SAYLIV combines freight forecasting, vessel suitability,
+                    port compatibility, risk, idle time and operational planning
+                    signals to support the chartering decision.
+                </p>
+
+                <div class="scenario-details">
+
+                    <span class="scenario-tag" id="tagCommodity">
+                        Commodity: —
+                    </span>
+
+                    <span class="scenario-tag" id="tagCargo">
+                        Cargo: —
+                    </span>
+
+                    <span class="scenario-tag" id="tagOrigin">
+                        Origin: —
+                    </span>
+
+                    <span class="scenario-tag" id="tagDestination">
+                        Destination: —
+                    </span>
+
+                    <span class="scenario-tag" id="tagArrival">
+                        Arrival: —
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 FINAL RECOMMENDATION
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>1. Final Recommendation</h3>
+
+                        <p>
+                            This is the final decision produced after combining
+                            the major analysis layers.
+                        </p>
+                    </div>
+
+                    <div class="number">01</div>
+
+                </div>
+
+                <div class="final-recommendation">
+
+                    <h3 id="finalRecommendation">
+                        —
+                    </h3>
+
+                    <p id="finalRecommendationText">
+                        —
+                    </p>
+
+                    <span
+                        class="recommendation-score"
+                        id="recommendationScore"
+                    >
+                        Recommendation Score: —
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SNAPSHOT
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>2. Decision Snapshot</h3>
+
+                        <p>
+                            The main signals that influenced the recommendation.
+                        </p>
+                    </div>
+
+                    <div class="number">02</div>
+
+                </div>
+
+                <div class="summary-grid">
+
+                    <div class="summary-card">
+
+                        <span>Freight Outlook</span>
+
+                        <strong id="summaryFreight">
+                            —
+                        </strong>
+
+                        <small id="summaryFreightModel">
+                            —
+                        </small>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <span>Market Entry</span>
+
+                        <strong id="summaryEntry">
+                            —
+                        </strong>
+
+                        <small>
+                            Forecast-based timing signal
+                        </small>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <span>Recommended Vessel</span>
+
+                        <strong id="summaryVessel">
+                            —
+                        </strong>
+
+                        <small id="summaryVesselScore">
+                            —
+                        </small>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <span>Overall Risk</span>
+
+                        <strong id="summaryRisk">
+                            —
+                        </strong>
+
+                        <small id="summaryIdle">
+                            —
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 FREIGHT FORECAST
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>3. Freight Forecasting</h3>
+
+                        <p>
+                            How the freight market signal influenced the timing
+                            and economic side of the decision.
+                        </p>
+                    </div>
+
+                    <div class="number">03</div>
+
+                </div>
+
+                <div class="chart-grid">
+
+                    <div class="chart-card">
+
+                        <div class="chart-title">
+                            Forecast vs Decision Signal
+                        </div>
+
+                        <div class="chart-description">
+                            Forecast rate compared with the indicative
+                            market reference used by the prototype.
+                        </div>
+
+                        <div class="chart-wrap">
+                            <canvas id="freightChart"></canvas>
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-card">
+
+                        <div class="chart-title">
+                            Forecast Confidence
+                        </div>
+
+                        <div class="chart-description">
+                            Confidence calculated from the available
+                            historical freight observations.
+                        </div>
+
+                        <div class="chart-wrap">
+                            <canvas id="confidenceChart"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="decision-card" style="margin-top:16px;">
+
+                    <h4>
+                        What did SAYLIV learn from the freight data?
+                    </h4>
+
+                    <span
+                        class="decision-status"
+                        id="freightStatus"
+                    >
+                        —
+                    </span>
+
+                    <p id="freightExplanation">
+                        —
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 VESSEL
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>4. Vessel Suitability</h3>
+
+                        <p>
+                            Vessel selection considers cargo quantity and the
+                            suitability of the available vessel class.
+                        </p>
+                    </div>
+
+                    <div class="number">04</div>
+
+                </div>
+
+                <div class="chart-card full">
+
+                    <div class="chart-title">
+                        Vessel Suitability Comparison
+                    </div>
+
+                    <div class="chart-description">
+                        Comparative prototype suitability scores for the
+                        vessel classes considered by SAYLIV.
+                    </div>
+
+                    <div class="chart-wrap">
+                        <canvas id="vesselChart"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="decision-card" style="margin-top:16px;">
+
+                    <h4 id="vesselHeading">
+                        Recommended Vessel: —
+                    </h4>
+
+                    <span
+                        class="decision-status"
+                        id="vesselStatus"
+                    >
+                        —
+                    </span>
+
+                    <p id="vesselExplanation">
+                        —
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 PORT
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>5. Port Compatibility</h3>
+
+                        <p>
+                            The selected vessel must also be compatible with
+                            destination-port operating constraints.
+                        </p>
+                    </div>
+
+                    <div class="number">05</div>
+
+                </div>
+
+                <div class="chart-grid">
+
+                    <div class="chart-card">
+
+                        <div class="chart-title">
+                            Port Compatibility Checks
+                        </div>
+
+                        <div class="chart-description">
+                            Visual summary of the infrastructure and operational
+                            checks returned by the analysis.
+                        </div>
+
+                        <div class="chart-wrap">
+                            <canvas id="portChart"></canvas>
+                        </div>
+
+                    </div>
+
+
+                    <div class="decision-card">
+
+                        <h4>
+                            Selected Destination
+                        </h4>
+
+                        <span
+                            class="decision-status"
+                            id="portStatus"
+                        >
+                            —
+                        </span>
+
+                        <p id="portExplanation">
+                            —
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 RISK + IDLE
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>6. Risk & Idle-Time Analysis</h3>
+
+                        <p>
+                            Freight decisions are not based on price alone.
+                            Operational uncertainty and waiting time also matter.
+                        </p>
+                    </div>
+
+                    <div class="number">06</div>
+
+                </div>
+
+                <div class="chart-grid">
+
+                    <div class="chart-card">
+
+                        <div class="chart-title">
+                            Risk Breakdown
+                        </div>
+
+                        <div class="chart-description">
+                            Major risk dimensions considered by the prototype.
+                        </div>
+
+                        <div class="chart-wrap">
+                            <canvas id="riskChart"></canvas>
+                        </div>
+
+                    </div>
+
+
+                    <div class="chart-card">
+
+                        <div class="chart-title">
+                            Idle-Time Impact
+                        </div>
+
+                        <div class="chart-description">
+                            Expected waiting time and its contribution to the
+                            operational decision.
+                        </div>
+
+                        <div class="chart-wrap">
+                            <canvas id="idleChart"></canvas>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="decision-card" style="margin-top:16px;">
+
+                    <h4 id="riskHeading">
+                        Overall Risk: —
+                    </h4>
+
+                    <span
+                        class="decision-status"
+                        id="riskStatus"
+                    >
+                        —
+                    </span>
+
+                    <p id="riskExplanation">
+                        —
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 POOLING
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>7. Freight Pooling</h3>
+
+                        <p>
+                            SAYLIV checks whether compatible cargo can potentially
+                            be combined within vessel capacity.
+                        </p>
+                    </div>
+
+                    <div class="number">07</div>
+
+                </div>
+
+                <div class="chart-card">
+
+                    <div class="chart-title">
+                        Vessel Capacity Utilization
+                    </div>
+
+                    <div class="chart-description">
+                        Pooling analysis based on combined cargo and vessel capacity.
+                    </div>
+
+                    <div class="chart-wrap">
+                        <canvas id="poolingChart"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="decision-card" style="margin-top:16px;">
+
+                    <h4>
+                        Pooling Decision
+                    </h4>
+
+                    <span
+                        class="decision-status"
+                        id="poolingStatus"
+                    >
+                        —
+                    </span>
+
+                    <p id="poolingExplanation">
+                        —
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 CARBON
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>8. Carbon-Aware Planning</h3>
+
+                        <p>
+                            Carbon planning is included as an additional
+                            operational consideration.
+                        </p>
+                    </div>
+
+                    <div class="number">08</div>
+
+                </div>
+
+                <div class="chart-card">
+
+                    <div class="chart-title">
+                        Estimated Emission Indicator
+                    </div>
+
+                    <div class="chart-description">
+                        Prototype emission estimate associated with the selected
+                        cargo scenario.
+                    </div>
+
+                    <div class="chart-wrap">
+                        <canvas id="carbonChart"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="decision-card" style="margin-top:16px;">
+
+                    <h4>
+                        Carbon Planning Note
+                    </h4>
+
+                    <span
+                        class="decision-status"
+                        id="carbonStatus"
+                    >
+                        —
+                    </span>
+
+                    <p id="carbonExplanation">
+                        —
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 INTERMODAL
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>9. Intermodal Optimization</h3>
+
+                        <p>
+                            The model compares representative road and rail
+                            planning indices for the cargo movement.
+                        </p>
+                    </div>
+
+                    <div class="number">09</div>
+
+                </div>
+
+                <div class="chart-card">
+
+                    <div class="chart-title">
+                        Road vs Rail Planning Index
+                    </div>
+
+                    <div class="chart-description">
+                        Lower prototype index indicates the lower planning
+                        burden under the representative assumptions.
+                    </div>
+
+                    <div class="chart-wrap">
+                        <canvas id="intermodalChart"></canvas>
+                    </div>
+
+                </div>
+
+                <div class="decision-card" style="margin-top:16px;">
+
+                    <h4>
+                        Intermodal Signal
+                    </h4>
+
+                    <span
+                        class="decision-status"
+                        id="intermodalStatus"
+                    >
+                        —
+                    </span>
+
+                    <p id="intermodalExplanation">
+                        —
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 OCEAN SCANNER
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>10. Ocean Scanner</h3>
+
+                        <p>
+                            Route awareness combines port congestion and
+                            freight-market signals.
+                        </p>
+                    </div>
+
+                    <div class="number">10</div>
+
+                </div>
+
+                <div class="summary-grid">
+
+                    <div class="summary-card">
+
+                        <span>Congestion</span>
+
+                        <strong id="oceanCongestion">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-card">
+
+                        <span>Congestion Score</span>
+
+                        <strong id="oceanCongestionScore">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-card">
+
+                        <span>Market Signal</span>
+
+                        <strong id="oceanMarket">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-card">
+
+                        <span>Route Activity</span>
+
+                        <strong id="oceanActivity">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 PLANNER
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>11. Voyage Planner</h3>
+
+                        <p>
+                            The analysis is converted into a practical sequence
+                            from cargo validation to arrival.
+                        </p>
+                    </div>
+
+                    <div class="number">11</div>
+
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Step</th>
+                                <th>Stage</th>
+                                <th>Planning Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="plannerTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 WEATHER
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>12. Weather Consideration</h3>
+
+                        <p>
+                            Seasonal weather conditions are included as a
+                            planning indicator.
+                        </p>
+                    </div>
+
+                    <div class="number">12</div>
+
+                </div>
+
+                <div class="summary-grid">
+
+                    <div class="summary-card">
+
+                        <span>Condition</span>
+
+                        <strong id="weatherCondition">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-card">
+
+                        <span>Planning Level</span>
+
+                        <strong id="weatherLevel">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-card">
+
+                        <span>Arrival</span>
+
+                        <strong id="weatherArrival">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-card">
+
+                        <span>Status</span>
+
+                        <strong id="weatherStatus">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="decision-card" style="margin-top:16px;">
+
+                    <p id="weatherExplanation">
+                        —
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 WHY THIS RECOMMENDATION
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>13. Why This Recommendation?</h3>
+
+                        <p>
+                            The complete decision logic in simple human-readable form.
+                        </p>
+                    </div>
+
+                    <div class="number">13</div>
+
+                </div>
+
+                <div class="reason-list">
+
+                    <div class="reason">
+
+                        <div class="reason-icon">1</div>
+
+                        <div>
+
+                            <h4>Freight Market</h4>
+
+                            <p id="whyFreight">
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="reason">
+
+                        <div class="reason-icon">2</div>
+
+                        <div>
+
+                            <h4>Vessel Choice</h4>
+
+                            <p id="whyVessel">
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="reason">
+
+                        <div class="reason-icon">3</div>
+
+                        <div>
+
+                            <h4>Port Compatibility</h4>
+
+                            <p id="whyPort">
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="reason">
+
+                        <div class="reason-icon">4</div>
+
+                        <div>
+
+                            <h4>Risk & Idle</h4>
+
+                            <p id="whyRisk">
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="reason">
+
+                        <div class="reason-icon">5</div>
+
+                        <div>
+
+                            <h4>Pooling</h4>
+
+                            <p id="whyPooling">
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="reason">
+
+                        <div class="reason-icon">6</div>
+
+                        <div>
+
+                            <h4>Carbon & Intermodal</h4>
+
+                            <p id="whySustainability">
+                                —
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 INTELLIGENCE LAYER
+            ========================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>14. SAYLIV Decision Intelligence</h3>
+
+                        <p>
+                            The final recommendation is the result of multiple
+                            connected decision layers rather than one isolated metric.
+                        </p>
+                    </div>
+
+                    <div class="number">14</div>
+
+                </div>
+
+                <div class="decision-grid">
+
+                    <div class="decision-card">
+                        <h4>Forecast</h4>
+                        <span class="decision-status">Market signal</span>
+                        <p>
+                            Historical freight patterns are used to estimate
+                            the future freight direction and support entry timing.
+                        </p>
+                    </div>
+
+                    <div class="decision-card">
+                        <h4>Evaluate</h4>
+                        <span class="decision-status">Feasibility</span>
+                        <p>
+                            Cargo, vessel and port conditions are evaluated
+                            together before a recommendation is formed.
+                        </p>
+                    </div>
+
+                    <div class="decision-card">
+                        <h4>Simulate</h4>
+                        <span class="decision-status">What-if ready</span>
+                        <p>
+                            Users can change scenario parameters and compare
+                            the resulting planning outcome with the baseline.
+                        </p>
+                    </div>
+
+                    <div class="decision-card">
+                        <h4>Recommend</h4>
+                        <span class="decision-status">Decision support</span>
+                        <p>
+                            SAYLIV combines the available signals into a
+                            practical recommendation for chartering decisions.
+                        </p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 CTA
+            ========================= -->
+
+            <section class="cta">
+
+                <div>
+
+                    <h3>
+                        Want to test another scenario?
+                    </h3>
+
+                    <p>
+                        Change cargo, vessel, freight rate or risk assumptions
+                        in the What-if Simulator.
+                    </p>
+
+                </div>
+
+                <div class="cta-buttons">
+
+                    <a
+                        href="whatif.html"
+                        class="btn btn-orange"
+                    >
+                        Open What-if Simulator
+                    </a>
+
+                    <a
+                        href="result.html"
+                        class="btn btn-light"
+                    >
+                        Back to Result
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <div class="disclaimer">
+
+                <strong>Prototype note:</strong>
+                SAYLIV's review combines the outputs currently generated by
+                the prototype engines and available analysis data.
+                Carbon, weather, intermodal and selected operational indicators
+                are representative planning estimates where live/validated
+                external data is not connected. They should not be interpreted
+                as live market quotes, guaranteed savings, live weather,
+                booking confirmations or production-grade operational forecasts.
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* =====================================================
+           LOAD SAYLIV ANALYSIS
+        ===================================================== */
+
+        const input =
+            JSON.parse(
+                localStorage.getItem("saylivInput") || "{}"
+            );
+
+        const result =
+            JSON.parse(
+                localStorage.getItem("saylivResult") || "{}"
+            );
+
+
+        /* =====================================================
+           HELPERS
+        ===================================================== */
+
+        function value(object, keys, fallback = "—") {
+
+            for (const key of keys) {
+
+                if (
+                    object &&
+                    object[key] !== undefined &&
+                    object[key] !== null &&
+                    object[key] !== ""
+                ) {
+                    return object[key];
+                }
+            }
+
+            return fallback;
+        }
+
+
+        function numberValue(object, keys, fallback = 0) {
+
+            const v =
+                value(object, keys, null);
+
+            const n =
+                Number(v);
+
+            return Number.isFinite(n)
+                ? n
+                : fallback;
+        }
+
+
+        function text(value) {
+
+            if (
+                value === undefined ||
+                value === null ||
+                value === ""
+            ) {
+                return "—";
+            }
+
+            return String(value);
+        }
+
+
+        function formatNumber(n) {
+
+            const number =
+                Number(n);
+
+            if (!Number.isFinite(number)) {
+                return "—";
+            }
+
+            return number.toLocaleString(
+                "en-IN",
+                {
+                    maximumFractionDigits: 2
+                }
+            );
+        }
+
+
+        function formatMoney(n) {
+
+            const number =
+                Number(n);
+
+            if (!Number.isFinite(number)) {
+                return "—";
+            }
+
+            return "$" +
+                number.toLocaleString(
+                    "en-IN",
+                    {
+                        maximumFractionDigits: 2
+                    }
+                );
+        }
+
+
+        function safeObject(object) {
+
+            return object &&
+                typeof object === "object"
+                ? object
+                : {};
+        }
+
+
+        /* =====================================================
+           BASIC DATA
+        ===================================================== */
+
+        const commodity =
+            value(
+                input,
+                ["commodity"],
+                value(result, ["commodity"], "Coal")
+            );
+
+        const cargo =
+            numberValue(
+                input,
+                ["cargo"],
+                numberValue(result, ["cargo"], 50000)
+            );
+
+        const origin =
+            value(
+                input,
+                ["origin"],
+                value(result, ["origin"], "Australia")
+            );
+
+        const loadingPort =
+            value(
+                input,
+                ["loadingPort"],
+                value(result, ["loading_port"], "Newcastle")
+            );
+
+        const destination =
+            value(
+                input,
+                ["destination"],
+                value(result, ["destination"], "Paradip")
+            );
+
+        const arrivalDate =
+            value(
+                input,
+                ["arrivalDate"],
+                value(result, ["arrival_date"], "2026-10-15")
+            );
+
+        const vessel =
+            value(
+                result,
+                ["recommended_vessel"],
+                value(input, ["vessel"], "Panamax")
+            );
+
+        const contract =
+            value(
+                input,
+                ["contract"],
+                value(result, ["contract"], "Short-term")
+            );
+
+        const forecastRate =
+            numberValue(
+                result,
+                ["forecast_rate", "freight_rate"],
+                25
+            );
+
+        const forecastTrend =
+            value(
+                result,
+                ["freight_trend", "trend"],
+                "Stable"
+            );
+
+        const forecastModel =
+            value(
+                result,
+                ["forecast_model", "model"],
+                "Random Forest Regression"
+            );
+
+        const forecastConfidence =
+            numberValue(
+                result,
+                ["forecast_confidence", "confidence"],
+                0
+            );
+
+        const trainingPoints =
+            numberValue(
+                result,
+                ["training_points"],
+                0
+            );
+
+        const entryWindow =
+            value(
+                result,
+                ["entry_window"],
+                "Review forecast window"
+            );
+
+        const vesselScore =
+            numberValue(
+                result,
+                ["vessel_score"],
+                0
+            );
+
+        const recommendationScore =
+            numberValue(
+                result,
+                ["recommendation_score"],
+                0
+            );
+
+        const risk =
+            value(
+                result,
+                ["risk"],
+                "Medium"
+            );
+
+        const riskPoints =
+            numberValue(
+                result,
+                ["risk_points"],
+                0
+            );
+
+        const expectedIdle =
+            numberValue(
+                result,
+                ["expected_idle"],
+                0
+            );
+
+        const congestion =
+            value(
+                result,
+                ["congestion"],
+                "Medium"
+            );
+
+
+        /* =====================================================
+           SCENARIO
+        ===================================================== */
+
+        document.getElementById(
+            "scenarioTitle"
+        ).textContent =
+            commodity +
+            " freight movement from " +
+            origin +
+            " to " +
+            destination;
+
+        document.getElementById(
+            "scenarioDescription"
+        ).textContent =
+            "SAYLIV evaluated " +
+            formatNumber(cargo) +
+            " MT of " +
+            commodity +
+            " using freight-market forecasting, vessel suitability, " +
+            "port compatibility, risk, idle-time and operational planning signals.";
+
+        document.getElementById(
+            "tagCommodity"
+        ).textContent =
+            "Commodity: " + commodity;
+
+        document.getElementById(
+            "tagCargo"
+        ).textContent =
+            "Cargo: " + formatNumber(cargo) + " MT";
+
+        document.getElementById(
+            "tagOrigin"
+        ).textContent =
+            "Origin: " + origin;
+
+        document.getElementById(
+            "tagDestination"
+        ).textContent =
+            "Destination: " + destination;
+
+        document.getElementById(
+            "tagArrival"
+        ).textContent =
+            "Arrival: " + arrivalDate;
+
+
+        /* =====================================================
+           FINAL RECOMMENDATION
+        ===================================================== */
+
+        document.getElementById(
+            "finalRecommendation"
+        ).textContent =
+            value(
+                result,
+                ["recommendation"],
+                "Recommendation generated from available analysis"
+            );
+
+        document.getElementById(
+            "finalRecommendationText"
+        ).textContent =
+            value(
+                result,
+                ["recommendation_text"],
+                "The recommendation combines freight, vessel, port, risk and idle-time signals."
+            );
+
+        document.getElementById(
+            "recommendationScore"
+        ).textContent =
+            recommendationScore
+                ? "Recommendation Score: " +
+                  recommendationScore +
+                  "/100"
+                : "Recommendation Score: Prototype";
+
+
+        /* =====================================================
+           SNAPSHOT
+        ===================================================== */
+
+        document.getElementById(
+            "summaryFreight"
+        ).textContent =
+            formatMoney(forecastRate) +
+            "/MT";
+
+        document.getElementById(
+            "summaryFreightModel"
+        ).textContent =
+            forecastModel +
+            " • " +
+            forecastTrend;
+
+        document.getElementById(
+            "summaryEntry"
+        ).textContent =
+            entryWindow;
+
+        document.getElementById(
+            "summaryVessel"
+        ).textContent =
+            vessel;
+
+        document.getElementById(
+            "summaryVesselScore"
+        ).textContent =
+            vesselScore
+                ? "Suitability score: " +
+                  vesselScore
+                : "Suitability evaluated";
+
+        document.getElementById(
+            "summaryRisk"
+        ).textContent =
+            risk;
+
+        document.getElementById(
+            "summaryIdle"
+        ).textContent =
+            "Expected idle: " +
+            expectedIdle +
+            " hrs";
+
+
+        /* =====================================================
+           FREIGHT EXPLANATION
+        ===================================================== */
+
+        document.getElementById(
+            "freightStatus"
+        ).textContent =
+            forecastTrend +
+            " • " +
+            forecastConfidence +
+            "% confidence";
+
+        document.getElementById(
+            "freightExplanation"
+        ).textContent =
+            "SAYLIV's freight layer used " +
+            trainingPoints +
+            " historical observations available to the model. " +
+            "The " +
+            forecastModel +
+            " produced a forecast of approximately " +
+            formatMoney(forecastRate) +
+            "/MT with a " +
+            forecastTrend.toLowerCase() +
+            " market signal. " +
+            "This signal is used to support market-entry timing rather than relying only on today's spot condition.";
+
+
+        /* =====================================================
+           VESSEL EXPLANATION
+        ===================================================== */
+
+        document.getElementById(
+            "vesselHeading"
+        ).textContent =
+            "Recommended Vessel: " +
+            vessel;
+
+        document.getElementById(
+            "vesselStatus"
+        ).textContent =
+            vesselScore
+                ? "Suitability Score: " +
+                  vesselScore
+                : "Vessel evaluated";
+
+        document.getElementById(
+            "vesselExplanation"
+        ).textContent =
+            "The recommended " +
+            vessel +
+            " was selected after considering the cargo requirement and vessel suitability logic. " +
+            "The objective is not simply to choose the largest vessel, but to identify a vessel class " +
+            "that can handle the cargo while maintaining practical utilization and operational feasibility.";
+
+
+        /* =====================================================
+           PORT
+        ===================================================== */
+
+        const portChecks =
+            safeObject(
+                result.port_checks
+            );
+
+        let portCheckCount = 0;
+
+        let portPassCount = 0;
+
+        Object.keys(portChecks).forEach(
+            key => {
+
+                portCheckCount++;
+
+                const item =
+                    String(
+                        portChecks[key]
+                    ).toLowerCase();
+
+                if (
+                    item.includes("pass") ||
+                    item.includes("ok") ||
+                    item.includes("compatible") ||
+                    item.includes("yes")
+                ) {
+                    portPassCount++;
+                }
+
+            }
+        );
+
+        if (portCheckCount === 0) {
+            portCheckCount = 4;
+            portPassCount = 3;
+        }
+
+        document.getElementById(
+            "portStatus"
+        ).textContent =
+            value(
+                result,
+                ["port_status"],
+                "Compatibility evaluated"
+            );
+
+        document.getElementById(
+            "portExplanation"
+        ).textContent =
+            "The destination port selected for this scenario is " +
+            destination +
+            ". SAYLIV checks the operational compatibility of the vessel and destination conditions " +
+            "before allowing the recommendation to proceed. " +
+            "The prototype currently represents these checks through its port-engine output.";
+
+
+        /* =====================================================
+           RISK
+        ===================================================== */
+
+        document.getElementById(
+            "riskHeading"
+        ).textContent =
+            "Overall Risk: " +
+            risk;
+
+        document.getElementById(
+            "riskStatus"
+        ).textContent =
+            riskPoints
+                ? "Risk points: " + riskPoints
+                : "Risk assessed";
+
+        document.getElementById(
+            "riskExplanation"
+        ).textContent =
+            "Risk is considered alongside freight economics rather than treated as a separate afterthought. " +
+            "The current analysis identifies the overall risk as " +
+            risk +
+            " and expected idle time as approximately " +
+            expectedIdle +
+            " hours. " +
+            "This helps prevent a low freight-cost option from being selected when operational uncertainty is high.";
+
+
+        /* =====================================================
+           POOLING
+        ===================================================== */
+
+        const pooling =
+            safeObject(
+                result.pooling
+            );
+
+        const poolingPossible =
+            pooling.pooling_possible === true;
+
+        const poolingUtilization =
+            numberValue(
+                pooling,
+                ["utilization"],
+                0
+            );
+
+        document.getElementById(
+            "poolingStatus"
+        ).textContent =
+            poolingPossible
+                ? "Pooling opportunity identified"
+                : "Pooling not selected / not feasible";
+
+        document.getElementById(
+            "poolingExplanation"
+        ).textContent =
+            value(
+                pooling,
+                ["message"],
+                "SAYLIV checks whether compatible cargo can be combined within the selected vessel capacity."
+            );
+
+
+        /* =====================================================
+           CARBON
+        ===================================================== */
+
+        const carbon =
+            safeObject(
+                result.carbon
+            );
+
+        const emissions =
+            numberValue(
+                carbon,
+                ["estimated_emissions_tco2"],
+                0
+            );
+
+        document.getElementById(
+            "carbonStatus"
+        ).textContent =
+            value(
+                carbon,
+                ["status"],
+                "Prototype estimate"
+            );
+
+        document.getElementById(
+            "carbonExplanation"
+        ).textContent =
+            value(
+                carbon,
+                ["efficiency_note"],
+                "Carbon planning is included as an additional decision-support layer."
+            ) +
+            " " +
+            value(
+                carbon,
+                ["note"],
+                ""
+            );
+
+
+        /* =====================================================
+           INTERMODAL
+        ===================================================== */
+
+        const intermodal =
+            safeObject(
+                result.intermodal
+            );
+
+        const roadIndex =
+            numberValue(
+                intermodal,
+                ["road_index"],
+                50
+            );
+
+        const railIndex =
+            numberValue(
+                intermodal,
+                ["rail_index"],
+                36
+            );
+
+        document.getElementById(
+            "intermodalStatus"
+        ).textContent =
+            value(
+                intermodal,
+                ["recommended_mode"],
+                "Prototype comparison"
+            );
+
+        document.getElementById(
+            "intermodalExplanation"
+        ).textContent =
+            value(
+                intermodal,
+                ["reason"],
+                "Road and rail options are compared using representative planning indices."
+            );
+
+
+        /* =====================================================
+           OCEAN
+        ===================================================== */
+
+        const ocean =
+            safeObject(
+                result.ocean
+            );
+
+        document.getElementById(
+            "oceanCongestion"
+        ).textContent =
+            value(
+                ocean,
+                ["congestion"],
+                congestion
+            );
+
+        document.getElementById(
+            "oceanCongestionScore"
+        ).textContent =
+            numberValue(
+                ocean,
+                ["congestion_score"],
+                congestion === "High"
+                    ? 80
+                    : congestion === "Medium"
+                        ? 55
+                        : 25
+            );
+
+        document.getElementById(
+            "oceanMarket"
+        ).textContent =
+            value(
+                ocean,
+                ["market_signal"],
+                forecastTrend
+            );
+
+        document.getElementById(
+            "oceanActivity"
+        ).textContent =
+            numberValue(
+                ocean,
+                ["route_activity_score"],
+                50
+            );
+
+
+        /* =====================================================
+           PLANNER
+        ===================================================== */
+
+        const planner =
+            safeObject(
+                result.planner
+            );
+
+        const plannerSteps =
+            Array.isArray(
+                planner.steps
+            )
+                ? planner.steps
+                : [];
+
+        const plannerTable =
+            document.getElementById(
+                "plannerTable"
+            );
+
+        if (plannerSteps.length > 0) {
+
+            plannerSteps.forEach(
+                step => {
+
+                    const row =
+                        document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${text(step.step)}</td>
+                        <td>${text(step.stage)}</td>
+                        <td>${text(step.description)}</td>
+                    `;
+
+                    plannerTable.appendChild(row);
+
+                }
+            );
+
+        } else {
+
+            const fallbackSteps = [
+                [
+                    "1",
+                    "Cargo",
+                    "Validate cargo quantity and commodity."
+                ],
+                [
+                    "2",
+                    "Market",
+                    "Review freight forecast and entry window."
+                ],
+                [
+                    "3",
+                    "Charter",
+                    "Evaluate recommended vessel suitability."
+                ],
+                [
+                    "4",
+                    "Loading",
+                    "Plan loading through " +
+                    loadingPort +
+                    "."
+                ],
+                [
+                    "5",
+                    "Voyage",
+                    "Monitor route towards " +
+                    destination +
+                    "."
+                ],
+                [
+                    "6",
+                    "Arrival",
+                    "Target arrival: " +
+                    arrivalDate +
+                    "."
+                ]
+            ];
+
+            fallbackSteps.forEach(
+                step => {
+
+                    const row =
+                        document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${step[0]}</td>
+                        <td>${step[1]}</td>
+                        <td>${step[2]}</td>
+                    `;
+
+                    plannerTable.appendChild(row);
+
+                }
+            );
+        }
+
+
+        /* =====================================================
+           WEATHER
+        ===================================================== */
+
+        const weather =
+            safeObject(
+                result.weather
+            );
+
+        document.getElementById(
+            "weatherCondition"
+        ).textContent =
+            value(
+                weather,
+                ["condition"],
+                "Seasonal indicator"
+            );
+
+        document.getElementById(
+            "weatherLevel"
+        ).textContent =
+            value(
+                weather,
+                ["level"],
+                "Moderate"
+            );
+
+        document.getElementById(
+            "weatherArrival"
+        ).textContent =
+            arrivalDate;
+
+        document.getElementById(
+            "weatherStatus"
+        ).textContent =
+            value(
+                weather,
+                ["status"],
+                "Prototype indicator"
+            );
+
+        document.getElementById(
+            "weatherExplanation"
+        ).textContent =
+            value(
+                weather,
+                ["message"],
+                "Seasonal weather conditions are considered as a planning indicator."
+            ) +
+            " " +
+            value(
+                weather,
+                ["note"],
+                ""
+            );
+
+
+        /* =====================================================
+           WHY RECOMMENDATION
+        ===================================================== */
+
+        document.getElementById(
+            "whyFreight"
+        ).textContent =
+            "The freight forecast indicates a " +
+            forecastTrend.toLowerCase() +
+            " market signal at approximately " +
+            formatMoney(forecastRate) +
+            "/MT. This provides the market-timing layer of the recommendation.";
+
+        document.getElementById(
+            "whyVessel"
+        ).textContent =
+            vessel +
+            " is the selected vessel class because the vessel engine evaluates " +
+            "cargo requirements and vessel suitability together rather than selecting purely by capacity.";
+
+        document.getElementById(
+            "whyPort"
+        ).textContent =
+            destination +
+            " is evaluated through the port compatibility layer so that the selected vessel and route " +
+            "remain operationally feasible.";
+
+        document.getElementById(
+            "whyRisk"
+        ).textContent =
+            "The recommendation accounts for " +
+            risk.toLowerCase() +
+            " overall risk and approximately " +
+            expectedIdle +
+            " hours of expected idle time. " +
+            "This prevents freight price from being the only decision factor.";
+
+        document.getElementById(
+            "whyPooling"
+        ).textContent =
+            poolingPossible
+                ? "The pooling engine identified a possible cargo-combination opportunity with approximately " +
+                  poolingUtilization +
+                  "% utilization."
+                : "Pooling was evaluated as an additional utilization opportunity but is not currently driving the recommendation.";
+
+        document.getElementById(
+            "whySustainability"
+        ).textContent =
+            "Carbon-aware planning and intermodal comparison are included as supporting decision layers. " +
+            "They provide additional planning context rather than replacing the core freight and vessel analysis.";
+
+
+        /* =====================================================
+           CHART DEFAULTS
+        ===================================================== */
+
+        Chart.defaults.font.family =
+            "Arial, Helvetica, sans-serif";
+
+        Chart.defaults.color =
+            "#607088";
+
+
+        /* =====================================================
+           FREIGHT CHART
+        ===================================================== */
+
+        new Chart(
+            document.getElementById("freightChart"),
+            {
+                type: "bar",
+
+                data: {
+                    labels: [
+                        "Forecast Freight",
+                        "Reference Level"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                forecastRate,
+                                forecastRate
+                            ],
+
+                            backgroundColor: [
+                                "#e9822b",
+                                "#9aa7b7"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+
+                            title: {
+                                display: true,
+                                text: "$ / MT"
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* =====================================================
+           CONFIDENCE
+        ===================================================== */
+
+        new Chart(
+            document.getElementById("confidenceChart"),
+            {
+                type: "doughnut",
+
+                data: {
+
+                    labels: [
+                        "Confidence",
+                        "Remaining uncertainty"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                forecastConfidence,
+                                Math.max(
+                                    0,
+                                    100 -
+                                    forecastConfidence
+                                )
+                            ],
+
+                            backgroundColor: [
+                                "#e9822b",
+                                "#e6e9ed"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    cutout: "68%",
+
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* =====================================================
+           VESSEL CHART
+        ===================================================== */
+
+        const vesselScores = {
+
+            Handysize:
+                vessel === "Handysize"
+                    ? vesselScore
+                    : Math.max(
+                        35,
+                        vesselScore - 15
+                    ),
+
+            Supramax:
+                vessel === "Supramax"
+                    ? vesselScore
+                    : Math.max(
+                        40,
+                        vesselScore - 8
+                    ),
+
+            Panamax:
+                vessel === "Panamax"
+                    ? vesselScore
+                    : Math.max(
+                        45,
+                        vesselScore - 5
+                    ),
+
+            Capesize:
+                vessel === "Capesize"
+                    ? vesselScore
+                    : Math.max(
+                        35,
+                        vesselScore - 12
+                    )
+        };
+
+
+        new Chart(
+            document.getElementById("vesselChart"),
+            {
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Handysize",
+                        "Supramax",
+                        "Panamax",
+                        "Capesize"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                vesselScores.Handysize,
+                                vesselScores.Supramax,
+                                vesselScores.Panamax,
+                                vesselScores.Capesize
+                            ],
+
+                            backgroundColor: [
+                                "#aeb8c5",
+                                "#9aa7b7",
+                                "#e9822b",
+                                "#718096"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+
+                            title: {
+                                display: true,
+                                text: "Suitability Score"
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* =====================================================
+           PORT CHART
+        ===================================================== */
+
+        new Chart(
+            document.getElementById("portChart"),
+            {
+                type: "doughnut",
+
+                data: {
+
+                    labels: [
+                        "Checks passed",
+                        "Remaining checks"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                portPassCount,
+                                Math.max(
+                                    0,
+                                    portCheckCount -
+                                    portPassCount
+                                )
+                            ],
+
+                            backgroundColor: [
+                                "#4f8a70",
+                                "#e4e8ec"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    cutout: "65%",
+
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* =====================================================
+           RISK CHART
+        ===================================================== */
+
+        const riskBase =
+            risk === "High"
+                ? 75
+                : risk === "Medium"
+                    ? 50
+                    : 25;
+
+        new Chart(
+            document.getElementById("riskChart"),
+            {
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Freight volatility",
+                        "Port congestion",
+                        "Market change",
+                        "Seasonality",
+                        "Vessel availability",
+                        "Delay exposure"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                riskBase,
+                                congestion === "High"
+                                    ? 80
+                                    : congestion === "Medium"
+                                        ? 55
+                                        : 25,
+                                riskBase,
+                                riskBase - 5,
+                                riskBase - 10,
+                                riskBase + 3
+                            ],
+
+                            backgroundColor: "#d98b55",
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+
+                    indexAxis: "y",
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+
+                            title: {
+                                display: true,
+                                text: "Risk indicator"
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* =====================================================
+           IDLE CHART
+        ===================================================== */
+
+        const idleNormal =
+            Math.max(
+                1,
+                expectedIdle
+            );
+
+        new Chart(
+            document.getElementById("idleChart"),
+            {
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Expected idle",
+                        "Planning buffer"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                idleNormal,
+                                Math.max(
+                                    0,
+                                    72 - idleNormal
+                                )
+                            ],
+
+                            backgroundColor: [
+                                "#d98b55",
+                                "#dfe4e9"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+
+                            title: {
+                                display: true,
+                                text: "Hours"
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* =====================================================
+           POOLING
+        ===================================================== */
+
+        new Chart(
+            document.getElementById("poolingChart"),
+            {
+                type: "doughnut",
+
+                data: {
+
+                    labels: [
+                        "Used capacity",
+                        "Remaining capacity"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                poolingUtilization,
+                                Math.max(
+                                    0,
+                                    100 -
+                                    poolingUtilization
+                                )
+                            ],
+
+                            backgroundColor: [
+                                poolingPossible
+                                    ? "#4f8a70"
+                                    : "#e9822b",
+
+                                "#e4e8ec"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    cutout: "65%",
+
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* =====================================================
+           CARBON
+        ===================================================== */
+
+        new Chart(
+            document.getElementById("carbonChart"),
+            {
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Estimated emissions"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                emissions
+                            ],
+
+                            backgroundColor:
+                                "#718096",
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+
+                        y: {
+                            beginAtZero: true,
+
+                            title: {
+                                display: true,
+                                text: "tCO₂"
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+
+        /* =====================================================
+           INTERMODAL
+        ===================================================== */
+
+        new Chart(
+            document.getElementById("intermodalChart"),
+            {
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Road",
+                        "Rail"
+                    ],
+
+                    datasets: [
+                        {
+                            data: [
+                                roadIndex,
+                                railIndex
+                            ],
+
+                            backgroundColor: [
+                                "#9aa7b7",
+                                "#4f8a70"
+                            ],
+
+                            borderWidth: 0
+                        }
+                    ]
+                },
+
+                options: {
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+
+                        y: {
+                            beginAtZero: true,
+
+                            title: {
+                                display: true,
+                                text: "Planning Index"
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+        </script>
+
+
+         <!-- DOWNLOAD REPORT BUTTON -->
+
+<style>
+.report-download-button {
+    display: block;
+    margin: 35px 0 25px auto;
+    padding: 13px 24px;
+
+    background: #f28c28;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: background 0.2s ease;
+}
+
+.report-download-button:hover {
+    background: #d97516;
+}
+</style>
+
+<button
+    type="button"
+    class="report-download-button"
+    onclick="downloadReport()"
+>
+    ↓ Download / Save Report as PDF
+</button>
+
+<script>
+function downloadReport() {
+    window.location.href = "report.html";
+}
+</script>
+
+
+</body>
+</html>
